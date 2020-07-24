@@ -1,0 +1,53 @@
+[
+    {
+      "id": 1,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 2,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 3,
+      "registration_state": "unconfirmed",
+      "registration_meta": "{1hunnidhsorty}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 4,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 5,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    }
+  ]
+  

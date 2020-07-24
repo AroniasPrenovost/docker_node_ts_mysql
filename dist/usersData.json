@@ -1,0 +1,43 @@
+[
+    {
+      "id": 1,
+      "email_address": "aron@gmail.com",
+      "password": "testpass123",
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 2,
+      "email_address": "test@yahoo.com",
+      "password": "100hunnid",
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 3,
+      "email_address": "buebird@outlook.com",
+      "password": "testpass123",
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 4,
+      "email_address": "aron@easci.com",
+      "password": "testpass123",
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    },
+    {
+      "id": 5,
+      "email_address": "ap123@aol.com",
+      "password": "testpass123",
+      "created_at": 1313123123,
+      "updated_at": 2323233,
+      "anonymized_at": 2321312312
+    }
+  ]
+  
