@@ -110,7 +110,7 @@ class UserRouter {
             if (user) {
                 res.status(200)
                     .send({
-                    message: 'Success',
+                    message: 'Successfully retrieved user by id',
                     status: res.status,
                     user
                 });
