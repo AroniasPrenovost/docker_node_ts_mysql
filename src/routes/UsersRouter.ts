@@ -80,20 +80,75 @@ export class UserRouter {
           email
         });
     }
-
-    // to do: 
-    // write tests for endpoint 
-
-
   }
 
-     /**
+  /**
    * PUT users
    * 
    */
 
    // to do... 
 
+   public async putOne(req: Request, res: Response, next: NextFunction) {
+    let query: string = ''; 
+    let preQuery: string = 'UPDATE Employees SET ';
+    let queryKeys: string[] = [];
+    let postQuery: string = 'WHERE id=';
+
+    //   insForm, err := db.Prepare("UPDATE Employees SET name=?, city=? WHERE id=?")
+    
+    let email: string = req.body.email_address; 
+
+    console.log(req.body)
+    console.log('____');
+
+    // if no password is explicitly set, randomize one + add to req.body
+    let pw: string = req.body.password; 
+    if (pw == null) {
+      pw = 'placeholder';
+      req.body.password = pw; 
+    }  
+        
+    // add created_at timestamp to req.body
+    let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    req.body.created_at = timestamp;
+
+    // build query 
+    let x: number = 0; 
+    Object.keys(req.body).forEach(function(key) {
+      queryKeys.push(key); 
+      postQuery = `${postQuery} '${req.body[key]}'`;
+      if (x < ((Object.keys(req.body)).length - 1)) {
+        postQuery = `${postQuery},`;
+      } else {
+        postQuery = `${postQuery})`;
+      }
+      x++; 
+    });
+
+    console.log(query);
+
+    // check if email address (the user) already exists
+    // let qy: string = `SELECT * FROM users WHERE email_address='${email}'`;
+    // let rs: Object = await dbPool.query(qy);
+
+    // if (Object.keys(rs).length) {  
+    //   res.status(403)
+    //     .send({
+    //       message: 'User already exists.',
+    //       status: res.status
+    //     });
+    // } else { // add new user to table 
+    //   query = `${preQuery}(${queryKeys}) ${postQuery}`;    
+    //   await dbPool.query(query);      
+    //   res.status(201)
+    //     .send({
+    //       message: 'Successfully added new user',
+    //       status: res.status,
+    //       email
+    //     });
+    // }
+  }
 
       // let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
       // req.body.updated_at = timestamp;
@@ -139,6 +194,7 @@ export class UserRouter {
     this.router.get('/:id', this.getOne);
 
     this.router.post('/', this.postOne); 
+    this.router.put('/', this.putOne); 
   }
 }
 
