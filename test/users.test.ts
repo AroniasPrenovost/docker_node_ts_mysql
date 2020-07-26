@@ -28,6 +28,8 @@ describe('GET api/v1/users', () => {
           'id',
           'email_address',
           'password',
+          'first_name',
+          'last_name',
           'created_at',
           'updated_at',
           'anonymized_at'

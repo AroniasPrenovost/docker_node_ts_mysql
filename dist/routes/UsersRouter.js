@@ -40,6 +40,17 @@ class UserRouter {
             let preQuery = 'INSERT INTO users';
             let queryKeys = [];
             let postQuery = 'VALUES(';
+            let email = req.body.email_address;
+            // if no password is explicitly set, randomize one + add to req.body
+            let pw = req.body.password;
+            if (pw == null) {
+                pw = 'placeholder';
+                req.body.password = pw;
+            }
+            // add created_at timestamp to req.body
+            let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+            req.body.created_at = timestamp;
+            // build query 
             let x = 0;
             Object.keys(req.body).forEach(function (key) {
                 queryKeys.push(key);
@@ -52,35 +63,37 @@ class UserRouter {
                 }
                 x++;
             });
-            query = `${preQuery}(${queryKeys}) ${postQuery}`;
-            let rows = yield dbPool.query(query);
-            console.log(rows);
+            // check if email address (the user) already exists
+            let qy = `SELECT * FROM users WHERE email_address='${email}'`;
+            let rs = yield dbPool.query(qy);
+            if (Object.keys(rs).length) {
+                res.status(403)
+                    .send({
+                    message: 'User already exists.',
+                    status: res.status
+                });
+            }
+            else { // add new user to table 
+                query = `${preQuery}(${queryKeys}) ${postQuery}`;
+                yield dbPool.query(query);
+                res.status(201)
+                    .send({
+                    message: 'Successfully added new user',
+                    status: res.status,
+                    email
+                });
+            }
             // to do: 
-            // 1. complete return 
-            // 2. write tests for endpoint 
-            // let user: Object = JSON.parse(JSON.stringify(rows))[0]; 
-            // let user: Object = TestUsers.find(user => user.id === query); // static data disabled 
-            // if (user) {
-            //   res.status(200)
-            //     .send({
-            //       message: 'Success',
-            //       status: res.status,
-            //       user
-            //     });
-            // }
-            // else {
-            //   res.status(404)
-            //     .send({
-            //       message: 'No user found with the given id.',
-            //       status: res.status
-            //     });
-            // }
+            // write tests for endpoint 
         });
     }
     /**
   * PUT users
+  *
   */
     // to do... 
+    // let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    // req.body.updated_at = timestamp;
     /**
   * DELETE users
   */

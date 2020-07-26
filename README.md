@@ -40,12 +40,12 @@ $ curl localhost:8080/api/v1/registrations
 
 * `POST /registrations` adds new registration record 
 ```
-$ curl localhost:8080/api/v1/registrations -X POST -d '{"name": "User121", "city": "Seattle"}' -H "Content-Type: application/json"
+$ curl localhost:8080/api/v1/registrations -X POST -d '{"password": "test"}' -H "Content-Type: application/json"
 ```
 
-* `PUT /registrations` update registration record
+* `PUT /registrations` update registration record (requires ID or email address)
 ```
-$ curl localhost:8080/api/v1/registrations -X PUT -d '{"name": "Fabrice", "city": "Paris", "id": 65}' -H "Content-Type: application/json"
+$ curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: application/json"
 ```
 
 * `DELETE /registrations` deletes all registration records 
@@ -64,17 +64,17 @@ $ curl localhost:8080/api/v1/registration/{id}
 
 * `GET /users` returns list of users as JSON
 ```
-$ curl localhost:8080/api/v1/heroes/1
+$ curl localhost:8080/api/v1/users
 ```
 
-* `POST /users` adds new user record 
+* `POST /users` adds new registration record 
 ```
-$ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "User121@yahoo.com"}' -H "Content-Type: application/json"
+$ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "aronp123@gmail.com", "first_name": "Aron", "last_name": "Prenovost", "password": "test"}' -H "Content-Type: application/json"
 ```
 
-* `PUT /users` update user record
+* `PUT /users` update registration record (requires ID or email address)
 ```
-$ curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "User121@yahoo.com"}' -H "Content-Type: application/json"
+$ curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "aronp123@gmail.com", "first_name": "Aron", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
 ```
 
 * `DELETE /users` deletes all user records 
