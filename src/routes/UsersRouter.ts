@@ -134,12 +134,6 @@ export class UserRouter {
   }
 
   /**
-   * DELETE users
-   */
-
-   // to do... 
-
-  /**
    * GET one user by id
    */
   public async getOne(req: Request, res: Response, next: NextFunction) {
@@ -164,6 +158,12 @@ export class UserRouter {
         });
     }
   }
+
+  /**
+   * DELETE users
+   */
+
+   // to do... 
 
   /**
    * Take each handler, and attach to one of the Express.Router's
