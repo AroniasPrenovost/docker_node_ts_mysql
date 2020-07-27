@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import { Users } from '../models/Users';
 var dbPool = require('../database/Database');
 // const TestUsers = require('../../test/data/usersData'); // static data disabled 
 class UserRouter {
