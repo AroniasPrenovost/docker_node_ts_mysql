@@ -14,9 +14,7 @@
 $ npm run build ; gulp assets ; npm test ; npm start
 ```
 
-### Unit tests
-
-Uses Mocha + Chai test frameworks
+### Run Tests
 
 ```
 $ npm test
@@ -120,3 +118,24 @@ Build a real world "production" REST API:
 * [ ] Clean git history with structured commits and useful messages. No merge master commits.
 
 * [ ] Passing go fmt, go lint, or better, go-metalinter in the CI.
+
+
+
+INSERT INTO `eventManagement`.`users`
+(`id`,
+`email_address`,
+`password`,
+`first_name`,
+`last_name`,
+`created_at`,
+`updated_at`,
+`anonymized_at`)
+VALUES
+(<{id: }>,
+<{email_address: }>,
+<{password: }>,
+<{first_name: }>,
+<{last_name: }>,
+<{created_at: }>,
+<{updated_at: }>,
+<{anonymized_at: }>);

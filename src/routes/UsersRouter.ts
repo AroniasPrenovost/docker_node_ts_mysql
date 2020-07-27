@@ -1,5 +1,7 @@
 import {Router, Request, Response, NextFunction} from 'express';
+// import { Users } from '../models/Users';
 var dbPool = require('../Database'); 
+
 // const TestUsers = require('../../test/data/usersData'); // static data disabled 
 
 export class UserRouter {
@@ -20,7 +22,7 @@ export class UserRouter {
     let query: string = 'SELECT * FROM users';
     let rows: Object = await dbPool.query(query);
     let users: Object = JSON.parse(JSON.stringify(rows)); 
-    
+
     if (Object.keys(users).length) {  
       res.status(200)
         .send({
