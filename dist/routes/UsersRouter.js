@@ -131,10 +131,6 @@ class UserRouter {
         });
     }
     /**
-     * DELETE users
-     */
-    // to do... 
-    /**
      * GET one user by id
      */
     getOne(req, res, next) {
@@ -160,6 +156,10 @@ class UserRouter {
             }
         });
     }
+    /**
+     * DELETE users
+     */
+    // to do... 
     /**
      * Take each handler, and attach to one of the Express.Router's
      * endpoints.
