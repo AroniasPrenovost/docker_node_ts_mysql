@@ -22,7 +22,7 @@
     {
       "id": 3,
       "registration_state": "unconfirmed",
-      "registration_meta": "{1hunnidhsorty}",
+      "registration_meta": "{}",
       "user_id": 3, 
       "event_id": 4, 
       "created_at": "2012-11-16 00:00:00",

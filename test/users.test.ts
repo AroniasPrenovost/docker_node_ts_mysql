@@ -70,7 +70,7 @@ describe('GET api/v1/users', () => {
 
     let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
     let testJSON = {
-      'email_address': 'randomized' + timestamp + '@testaccount.com', 
+      'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@test.com`, 
       'first_name': 'test account', 
       'last_name': 'test account', 
       'password': 'test',
@@ -98,7 +98,7 @@ describe('GET api/v1/users', () => {
     let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
     let testJSON = {
       'id': 1,
-      'password': 'test',
+      'password': `PUT-test-password-${timestamp.replace(/ +/g, '-')}`,
       'updated_at': timestamp
     }; 
 

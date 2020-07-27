@@ -163,18 +163,39 @@ export class UserRouter {
    * DELETE users
    */
 
-   // to do... 
+  public async deleteAll(req: Request, res: Response, next: NextFunction) {
+
+    let qy: string = `SELECT * FROM users`;
+    let rs: Object = await dbPool.query(qy);
+    if (!Object.keys(rs).length) {  
+      res.status(204)
+        .send({
+          message: 'There are no users to delete.',
+          status: res.status
+        });
+    } else {
+      let query = `DELETE FROM users`; 
+      await dbPool.query(query);      
+      res.status(200)
+        .send({
+          message: 'Successfully deleted users.',
+          status: res.status,
+          rs
+        });
+    }
+  }
 
   /**
    * Take each handler, and attach to one of the Express.Router's
    * endpoints.
    */
   init() {
+    // users 
     this.router.get('/', this.getAll);
     this.router.get('/:id', this.getOne);
-
     this.router.post('/', this.postOne); 
     this.router.put('/', this.putOne); 
+    this.router.delete('/', this.deleteAll); 
   }
 }
 
