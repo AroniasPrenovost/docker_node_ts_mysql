@@ -17,17 +17,18 @@ describe('GET api/v1/users', () => {
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res).to.be.json;
-        expect(res.body).to.be.an('array');
-        // expect(res.body).to.have.length(5);
+        expect(res.body).to.be.an('object');
+        expect(res.body.message).to.equal('Successfully retrieved users.');
       });
   });
 
-  it('should include aronprenovostmktg@gmail.com', () => {
+  it('example user email should equal aronprenovostmktg@gmail.com', () => {
     return chai.request(app).get('/api/v1/users')
       .then(res => {
-        let emailAddress = res.body.find(user => user.email_address === 'aronprenovostmktg@gmail.com');
-        expect(emailAddress).to.exist;
-        expect(emailAddress).to.have.all.keys([
+        let exampleUser = res.body.users[0];
+        expect(exampleUser.email_address).to.equal('aronprenovostmktg@gmail.com'); 
+        expect(exampleUser).to.exist;
+        expect(exampleUser).to.have.all.keys([
           'id',
           'email_address',
           'password',
@@ -51,7 +52,7 @@ describe('GET api/v1/users', () => {
           expect(res.status).to.equal(200);
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
-          
+          expect(res.body.message).to.equal('Successfully retrieved user by id.');
         });
     });
 

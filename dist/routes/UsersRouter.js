@@ -27,8 +27,21 @@ class UserRouter {
             let query = 'SELECT * FROM users';
             let rows = yield dbPool.query(query);
             let users = JSON.parse(JSON.stringify(rows));
-            // res.send(TestUsers); // static data disabled 
-            res.send(users);
+            if (Object.keys(users).length) {
+                res.status(200)
+                    .send({
+                    message: 'Successfully retrieved users.',
+                    status: res.status,
+                    users
+                });
+            }
+            else {
+                res.status(204)
+                    .send({
+                    message: 'No user found.',
+                    status: res.status
+                });
+            }
         });
     }
     /**
@@ -138,11 +151,10 @@ class UserRouter {
             let query = 'SELECT * FROM users WHERE id=' + parseInt(req.params.id);
             let rows = yield dbPool.query(query);
             let user = JSON.parse(JSON.stringify(rows))[0];
-            // let user: Object = TestUsers.find(user => user.id === query); // static data disabled 
             if (user) {
                 res.status(200)
                     .send({
-                    message: 'Successfully retrieved user by id',
+                    message: 'Successfully retrieved user by id.',
                     status: res.status,
                     user
                 });
@@ -187,7 +199,6 @@ class UserRouter {
      * endpoints.
      */
     init() {
-        // users 
         this.router.get('/', this.getAll);
         this.router.get('/:id', this.getOne);
         this.router.post('/', this.postOne);
