@@ -1,6 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
 // import { Users } from '../models/Users';
-var dbPool = require('../Database'); 
+var dbPool = require('../database/Database'); 
 
 // const TestUsers = require('../../test/data/usersData'); // static data disabled 
 

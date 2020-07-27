@@ -1,5 +1,5 @@
 import {Router, Request, Response, NextFunction} from 'express';
-var dbPool = require('../Database');
+var dbPool = require('../database/Database');
 // const TestRegistrations = require('../../test/data/registrationsData'); // static data disabled 
 
 export class RegistrationsRouter {
