@@ -78,25 +78,61 @@ class UserRouter {
                 yield dbPool.query(query);
                 res.status(201)
                     .send({
-                    message: 'Successfully added new user',
+                    message: 'Successfully added new user.',
                     status: res.status,
                     email
                 });
             }
-            // to do: 
-            // write tests for endpoint 
         });
     }
     /**
-  * PUT users
-  *
-  */
-    // to do... 
-    // let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    // req.body.updated_at = timestamp;
+     * PUT users
+     *
+     */
+    putOne(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user_id = req.body.id;
+            if (user_id == null) {
+                res.status(403)
+                    .send({
+                    message: 'Missing id field.',
+                    status: res.status
+                });
+            }
+            // check if valid user id 
+            let qy = `SELECT * FROM users WHERE id='${user_id}'`;
+            let rs = yield dbPool.query(qy);
+            if (!Object.keys(rs).length) {
+                res.status(403)
+                    .send({
+                    message: 'User with this id does not exist.',
+                    status: res.status
+                });
+            }
+            // add updated_at timestamp to req.body
+            let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+            req.body.updated_at = timestamp;
+            // build query 
+            let query = '';
+            let preQuery = 'UPDATE users SET';
+            let queryKeys = [];
+            let postQuery = `WHERE id=${user_id}`;
+            Object.keys(req.body).forEach(function (key) {
+                queryKeys.push(`${key}='${req.body[key]}'`);
+            });
+            query = `${preQuery} ${queryKeys} ${postQuery}`;
+            yield dbPool.query(query);
+            res.status(200)
+                .send({
+                message: 'Successfully updated user.',
+                status: res.status,
+                user_id
+            });
+        });
+    }
     /**
-  * DELETE users
-  */
+     * DELETE users
+     */
     // to do... 
     /**
      * GET one user by id
@@ -132,6 +168,7 @@ class UserRouter {
         this.router.get('/', this.getAll);
         this.router.get('/:id', this.getOne);
         this.router.post('/', this.postOne);
+        this.router.put('/', this.putOne);
     }
 }
 exports.UserRouter = UserRouter;

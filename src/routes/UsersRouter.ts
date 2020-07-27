@@ -75,7 +75,7 @@ export class UserRouter {
       await dbPool.query(query);      
       res.status(201)
         .send({
-          message: 'Successfully added new user',
+          message: 'Successfully added new user.',
           status: res.status,
           email
         });
@@ -87,73 +87,53 @@ export class UserRouter {
    * 
    */
 
-   // to do... 
-
    public async putOne(req: Request, res: Response, next: NextFunction) {
-    let query: string = ''; 
-    let preQuery: string = 'UPDATE Employees SET ';
-    let queryKeys: string[] = [];
-    let postQuery: string = 'WHERE id=';
 
-    //   insForm, err := db.Prepare("UPDATE Employees SET name=?, city=? WHERE id=?")
-    
-    let email: string = req.body.email_address; 
-
-    console.log(req.body)
-    console.log('____');
-
-    // if no password is explicitly set, randomize one + add to req.body
-    let pw: string = req.body.password; 
-    if (pw == null) {
-      pw = 'placeholder';
-      req.body.password = pw; 
+    let user_id: number = req.body.id; 
+    if (user_id == null) {
+      res.status(403)
+        .send({
+          message: 'Missing id field.',
+          status: res.status
+        });
     }  
-        
-    // add created_at timestamp to req.body
+
+    // check if valid user id 
+    let qy: string = `SELECT * FROM users WHERE id='${user_id}'`;
+    let rs: Object = await dbPool.query(qy);
+    if (!Object.keys(rs).length) {  
+      res.status(403)
+        .send({
+          message: 'User with this id does not exist.',
+          status: res.status
+        });
+    }
+
+    // add updated_at timestamp to req.body
     let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    req.body.created_at = timestamp;
+    req.body.updated_at = timestamp;
 
     // build query 
-    let x: number = 0; 
+    let query: string = ''; 
+    let preQuery: string = 'UPDATE users SET';
+    let queryKeys: string[] = [];
+    let postQuery: string = `WHERE id=${user_id}`;
+
     Object.keys(req.body).forEach(function(key) {
-      queryKeys.push(key); 
-      postQuery = `${postQuery} '${req.body[key]}'`;
-      if (x < ((Object.keys(req.body)).length - 1)) {
-        postQuery = `${postQuery},`;
-      } else {
-        postQuery = `${postQuery})`;
-      }
-      x++; 
+      queryKeys.push(`${key}='${req.body[key]}'`); 
     });
 
-    console.log(query);
-
-    // check if email address (the user) already exists
-    // let qy: string = `SELECT * FROM users WHERE email_address='${email}'`;
-    // let rs: Object = await dbPool.query(qy);
-
-    // if (Object.keys(rs).length) {  
-    //   res.status(403)
-    //     .send({
-    //       message: 'User already exists.',
-    //       status: res.status
-    //     });
-    // } else { // add new user to table 
-    //   query = `${preQuery}(${queryKeys}) ${postQuery}`;    
-    //   await dbPool.query(query);      
-    //   res.status(201)
-    //     .send({
-    //       message: 'Successfully added new user',
-    //       status: res.status,
-    //       email
-    //     });
-    // }
+    query = `${preQuery} ${queryKeys} ${postQuery}`; 
+    await dbPool.query(query);      
+    res.status(200)
+      .send({
+        message: 'Successfully updated user.',
+        status: res.status,
+        user_id
+      });
   }
 
-      // let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-      // req.body.updated_at = timestamp;
-
-     /**
+  /**
    * DELETE users
    */
 
