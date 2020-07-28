@@ -25,7 +25,7 @@ describe('GET api/v1/users', () => {
   it('example user email should equal aronprenovostmktg@gmail.com', () => {
     return chai.request(app).get('/api/v1/users')
       .then(res => {
-        let exampleUser = res.body.users[0];
+        let exampleUser: any = res.body.data[0];
         expect(exampleUser.email_address).to.equal('aronprenovostmktg@gmail.com'); 
         expect(exampleUser).to.exist;
         expect(exampleUser).to.have.all.keys([
@@ -59,7 +59,7 @@ describe('GET api/v1/users', () => {
     it('should return aronprenovostmktg@gmail.com', () => {
       return chai.request(app).get('/api/v1/users/1')
         .then(res => {
-          expect(res.body.user.email_address).to.equal('aronprenovostmktg@gmail.com');
+          expect(res.body.data.email_address).to.equal('aronprenovostmktg@gmail.com');
         });
     });
   });
@@ -99,7 +99,7 @@ describe('GET api/v1/users', () => {
     let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
     let testJSON = {
       'id': 1,
-      'password': `PUT-test-password-${timestamp.replace(/ +/g, '-')}`,
+      'password': `password-${timestamp.replace(/ +/g, '-')}`,
       'updated_at': timestamp
     }; 
 

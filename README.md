@@ -65,6 +65,11 @@ $ curl localhost:8080/api/v1/registration/{id}
 $ curl localhost:8080/api/v1/users
 ```
 
+* `GET /users/:id` gets user by Id 
+```
+$ curl localhost:8080/api/v1/users
+```
+
 * `POST /users` adds new users record 
 ```
 $ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "aronp123@gmail.com", "first_name": "Aron", "last_name": "Prenovost", "password": "test"}' -H "Content-Type: application/json"
@@ -73,11 +78,6 @@ $ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "aronp123@gmail
 * `PUT /users` update user record - requires user's id
 ```
 $ curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "aronp123@gmail.com", "first_name": "Aron", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
-```
-
-* `DELETE /users` deletes all user records 
-```
-$ curl localhost:8080/api/v1/users -X DELETE
 ```
 
 ## Long-Term Goals 

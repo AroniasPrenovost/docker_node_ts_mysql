@@ -6,7 +6,7 @@ import * as bodyParser from 'body-parser';
 /**
  * Import routes
  */ 
-import UsersRouter from './routes/UsersRouter';
+import { UsersRouter } from "./models/users/users.router";
 import RegistrationsRouter from './routes/RegistrationsRouter';
 
 /**

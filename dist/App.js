@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 /**
  * Import routes
  */
-const UsersRouter_1 = require("./routes/UsersRouter");
+const users_router_1 = require("./models/users/users.router");
 const RegistrationsRouter_1 = require("./routes/RegistrationsRouter");
 /**
  * Creates and configures an ExpressJS web server
@@ -35,7 +35,7 @@ class App {
             });
         });
         this.express.use('/', router);
-        this.express.use('/api/v1/users', UsersRouter_1.default);
+        this.express.use('/api/v1/users', users_router_1.UsersRouter);
         this.express.use('/api/v1/registrations', RegistrationsRouter_1.default);
     }
 }
