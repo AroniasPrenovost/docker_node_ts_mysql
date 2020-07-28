@@ -5,7 +5,7 @@
 // import express, { Request, Response } from "express";
 import {Router, Request, Response, NextFunction} from 'express';
 import * as express from 'express';
-import * as UserService from "./users.service";
+import * as UsersService from "./users.service";
 import { User } from "./user.interface";
 import { Users } from "./users.interface";
 import { Http_Response } from "./../http_responses/http_response.interface";
@@ -25,7 +25,7 @@ export const UsersRouter = express.Router();
 
 UsersRouter.get("/", async (req: Request, res: Response) => {
   try {
-    const http_response: Http_Response = await UserService.getAll();
+    const http_response: Http_Response = await UsersService.getAll();
     let data: Object = JSON.parse(JSON.stringify(http_response.data));
 
     res.status(http_response.status_code)
@@ -45,7 +45,7 @@ UsersRouter.get("/", async (req: Request, res: Response) => {
 UsersRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    const http_response: Http_Response = await UserService.find(id);
+    const http_response: Http_Response = await UsersService.find(id);
     let data = JSON.parse(JSON.stringify(http_response.data));
 
     res.status(http_response.status_code)
@@ -65,7 +65,7 @@ UsersRouter.get("/:id", async (req: Request, res: Response) => {
   UsersRouter.post("/", async (req: Request, res: Response) => {
     try {
       const user: User = req.body;
-      const http_response: Http_Response = await UserService.create(user);
+      const http_response: Http_Response = await UsersService.create(user);
       let data: Object = JSON.parse(JSON.stringify(http_response.data));
       
       res.status(http_response.status_code)
@@ -85,7 +85,7 @@ UsersRouter.get("/:id", async (req: Request, res: Response) => {
   UsersRouter.put("/", async (req: Request, res: Response) => {
     try {
       const user: User = req.body;
-      const http_response: Http_Response = await UserService.update(user);
+      const http_response: Http_Response = await UsersService.update(user);
       let data: Object = JSON.parse(JSON.stringify(http_response.data));
 
       res.status(http_response.status_code)
@@ -105,7 +105,7 @@ UsersRouter.get("/:id", async (req: Request, res: Response) => {
   UsersRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
       const id: number = parseInt(req.params.id, 10);
-      await UserService.remove(id);
+      await UsersService.remove(id);
   
       res.sendStatus(200);
     } catch (e) {

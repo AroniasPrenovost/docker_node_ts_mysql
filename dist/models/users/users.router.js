@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const UserService = require("./users.service");
+const UsersService = require("./users.service");
 /**
  * Router Definition
  */
@@ -23,7 +23,7 @@ exports.UsersRouter = express.Router();
 // GET users/
 exports.UsersRouter.get("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const http_response = yield UserService.getAll();
+        const http_response = yield UsersService.getAll();
         let data = JSON.parse(JSON.stringify(http_response.data));
         res.status(http_response.status_code)
             .send({
@@ -40,7 +40,7 @@ exports.UsersRouter.get("/", (req, res) => __awaiter(this, void 0, void 0, funct
 exports.UsersRouter.get("/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
-        const http_response = yield UserService.find(id);
+        const http_response = yield UsersService.find(id);
         let data = JSON.parse(JSON.stringify(http_response.data));
         res.status(http_response.status_code)
             .send({
@@ -57,7 +57,7 @@ exports.UsersRouter.get("/:id", (req, res) => __awaiter(this, void 0, void 0, fu
 exports.UsersRouter.post("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const user = req.body;
-        const http_response = yield UserService.create(user);
+        const http_response = yield UsersService.create(user);
         let data = JSON.parse(JSON.stringify(http_response.data));
         res.status(http_response.status_code)
             .send({
@@ -74,7 +74,7 @@ exports.UsersRouter.post("/", (req, res) => __awaiter(this, void 0, void 0, func
 exports.UsersRouter.put("/", (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const user = req.body;
-        const http_response = yield UserService.update(user);
+        const http_response = yield UsersService.update(user);
         let data = JSON.parse(JSON.stringify(http_response.data));
         res.status(http_response.status_code)
             .send({
@@ -91,7 +91,7 @@ exports.UsersRouter.put("/", (req, res) => __awaiter(this, void 0, void 0, funct
 exports.UsersRouter.delete("/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
-        yield UserService.remove(id);
+        yield UsersService.remove(id);
         res.sendStatus(200);
     }
     catch (e) {
