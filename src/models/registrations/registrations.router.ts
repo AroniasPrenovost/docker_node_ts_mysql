@@ -2,27 +2,28 @@
  * Required External Modules and Interfaces
  */
 
-import {Request, Response} from 'express';
 import * as express from 'express';
-import * as UsersService from './users.service';
-import { User } from './user.interface';
+import {Request, Response} from 'express';
+import * as RegistrationsService from './registrations.service';
+
+import { Registration } from './registration.interface';
 import { Http_Response } from './../http_responses/http_response.interface';
 
 /**
  * Router Definition
  */
 
-export const UsersRouter = express.Router();
+export const RegistrationsRouter = express.Router();
 
 /**
  * Controller Definitions
  */
 
-// GET users/
+// GET registrations/
 
-UsersRouter.get('/', async (req: Request, res: Response) => {
+RegistrationsRouter.get('/', async (req: Request, res: Response) => {
   try {
-    const http_response: Http_Response = await UsersService.getAll();
+    const http_response: Http_Response = await RegistrationsService.getAll();
     let data: Object = JSON.parse(JSON.stringify(http_response.data));
 
     res.status(http_response.status_code)
@@ -37,12 +38,12 @@ UsersRouter.get('/', async (req: Request, res: Response) => {
   }
 });
   
-// GET users/:id
+// GET registrations/:id
 
-UsersRouter.get('/:id', async (req: Request, res: Response) => {
+RegistrationsRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    const http_response: Http_Response = await UsersService.find(id);
+    const http_response: Http_Response = await RegistrationsService.find(id);
     let data = JSON.parse(JSON.stringify(http_response.data));
 
     res.status(http_response.status_code)
@@ -56,13 +57,13 @@ UsersRouter.get('/:id', async (req: Request, res: Response) => {
     res.status(404).send(e.message);
   }
 });
-  
-// POST users/
 
-UsersRouter.post('/', async (req: Request, res: Response) => {
+// POST registrations/
+  
+RegistrationsRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const user: User = req.body;
-    const http_response: Http_Response = await UsersService.create(user);
+    const registration: Registration = req.body;
+    const http_response: Http_Response = await RegistrationsService.create(registration);
     let data: Object = JSON.parse(JSON.stringify(http_response.data));
     
     res.status(http_response.status_code)
@@ -77,12 +78,12 @@ UsersRouter.post('/', async (req: Request, res: Response) => {
   }   
 });
 
-// PUT users/
+// PUT registrations/
 
-UsersRouter.put('/', async (req: Request, res: Response) => {
+RegistrationsRouter.put('/', async (req: Request, res: Response) => {
   try {
-    const user: User = req.body;
-    const http_response: Http_Response = await UsersService.update(user);
+    const registration: Registration = req.body;
+    const http_response: Http_Response = await RegistrationsService.update(registration);
     let data: Object = JSON.parse(JSON.stringify(http_response.data));
 
     res.status(http_response.status_code)
@@ -96,13 +97,13 @@ UsersRouter.put('/', async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
-  
-// DELETE users/
 
-UsersRouter.delete('/:id', async (req: Request, res: Response) => {
+// DELETE registrations/
+
+RegistrationsRouter.delete('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    await UsersService.remove(id);
+    await RegistrationsService.remove(id);
 
     res.sendStatus(200);
   } catch (e) {

@@ -1,4 +1,3 @@
-import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
@@ -7,7 +6,7 @@ import * as bodyParser from 'body-parser';
  * Import routes
  */ 
 import { UsersRouter } from "./models/users/users.router";
-import RegistrationsRouter from './routes/RegistrationsRouter';
+import { RegistrationsRouter } from "./models/registrations/registrations.router";
 
 /**
  * Creates and configures an ExpressJS web server
@@ -36,7 +35,7 @@ class App {
     // This function will change when we start to add more API endpoints 
     let router = express.Router();
     // placeholder route handler
-    router.get('/', (req, res, next) => {
+    router.get('/', (req, res) => {
       res.json({
         message: 'Hello World!'
       });

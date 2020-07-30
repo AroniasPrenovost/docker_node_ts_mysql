@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
  * Import routes
  */
 const users_router_1 = require("./models/users/users.router");
-const RegistrationsRouter_1 = require("./routes/RegistrationsRouter");
+const registrations_router_1 = require("./models/registrations/registrations.router");
 /**
  * Creates and configures an ExpressJS web server
  */
@@ -29,14 +29,14 @@ class App {
         // This function will change when we start to add more API endpoints 
         let router = express.Router();
         // placeholder route handler
-        router.get('/', (req, res, next) => {
+        router.get('/', (req, res) => {
             res.json({
                 message: 'Hello World!'
             });
         });
         this.express.use('/', router);
         this.express.use('/api/v1/users', users_router_1.UsersRouter);
-        this.express.use('/api/v1/registrations', RegistrationsRouter_1.default);
+        this.express.use('/api/v1/registrations', registrations_router_1.RegistrationsRouter);
     }
 }
 exports.default = new App().express;

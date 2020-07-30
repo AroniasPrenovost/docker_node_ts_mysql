@@ -2,12 +2,12 @@
  * Data Model Interfaces
  */
 
-import { User } from "./user.interface";
-import { Users } from "./users.interface";
-import { existsSync } from "fs";
-import { time } from "console";
-import { Http_Response } from "./../http_responses/http_response.interface";
-import e = require("express");
+import { User } from './user.interface';
+import { Users } from './users.interface';
+import { existsSync } from 'fs';
+import { time } from 'console';
+import { Http_Response } from './../http_responses/http_response.interface';
+import e = require('express');
 
 /**
  * In-Memory Store
@@ -220,5 +220,5 @@ export const remove = async (id: number): Promise<Http_Response> => {
     //   });
   }
 
-  throw new Error("No record found to delete");
+  throw new Error('No record found to delete');
 };

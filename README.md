@@ -1,6 +1,6 @@
 # RESTful API With Node and TypeScript
 
-### Project setup 
+### Project Setup 
 
 1. Fork/Clone
 2. create .env w/ credentials - `cp .env-sample .env`
@@ -11,13 +11,7 @@
 7. Run the development server - `npm start`
 
 ```
-$ npm run build ; gulp assets ; npm test ; npm start
-```
-
-### Run Tests
-
-```
-$ npm test
+$ npm run build ; gulp assets ; npm start
 ```
 
 ### Data storage 
@@ -36,9 +30,14 @@ to do:
 $ curl localhost:8080/api/v1/registrations
 ```
 
+* `GET /registrations/:id` returns list of registrations as JSON
+```
+$ curl localhost:8080/api/v1/registrations
+```
+
 * `POST /registrations` adds new registration record 
 ```
-$ curl localhost:8080/api/v1/registrations -X POST -d '{"password": "test"}' -H "Content-Type: application/json"
+$ curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "unfirmed", "event_id": 12, "registration_meta": { "first_name": "Louie", "last_name": "Barletta", "phone_number": "123456789", "email_address": "louieBarletta@enjoi.com", "contact_me": true}}' -H "Content-Type: application/json"
 ```
 
 * `PUT /registrations` update registration record (requires ID or email address)
@@ -118,24 +117,3 @@ Build a real world "production" REST API:
 * [ ] Clean git history with structured commits and useful messages. No merge master commits.
 
 * [ ] Passing go fmt, go lint, or better, go-metalinter in the CI.
-
-
-
-INSERT INTO `eventManagement`.`users`
-(`id`,
-`email_address`,
-`password`,
-`first_name`,
-`last_name`,
-`created_at`,
-`updated_at`,
-`anonymized_at`)
-VALUES
-(<{id: }>,
-<{email_address: }>,
-<{password: }>,
-<{first_name: }>,
-<{last_name: }>,
-<{created_at: }>,
-<{updated_at: }>,
-<{anonymized_at: }>);

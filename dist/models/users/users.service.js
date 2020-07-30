@@ -182,5 +182,5 @@ exports.remove = (id) => __awaiter(this, void 0, void 0, function* () {
         //     rs
         //   });
     }
-    throw new Error("No record found to delete");
+    throw new Error('No record found to delete');
 });
