@@ -8,7 +8,7 @@ import { User } from './user.interface';
 import { Users } from './users.interface';
 import { Http_Response } from './../http_responses/http_response.interface';
 
-var Utils = require('../../utils/index'); 
+var Utils = require('../../utils/Index'); 
 
 /**
  * In-Memory Store

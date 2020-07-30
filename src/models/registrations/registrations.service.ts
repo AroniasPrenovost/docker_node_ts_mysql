@@ -9,7 +9,7 @@ import { Registration } from './registration.interface';
 import { Registrations } from './registrations.interface';
 import { Http_Response } from './../http_responses/http_response.interface';
 
-var Utils = require('../../utils/index'); 
+var Utils = require('../../utils/Index'); 
 
 /**
  * In-Memory Store

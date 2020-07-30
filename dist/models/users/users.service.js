@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Utils = require('../../utils/index');
+var Utils = require('../../utils/Index');
 /**
  * In-Memory Store
  */
