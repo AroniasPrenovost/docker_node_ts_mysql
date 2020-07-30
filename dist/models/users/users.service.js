@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Utils = require('../../utils/index');
 /**
  * In-Memory Store
  */
@@ -81,8 +82,7 @@ exports.create = (newUser) => __awaiter(this, void 0, void 0, function* () {
         newUser.password = pw;
     }
     // add created_at timestamp to newUser
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    newUser.created_at = timestamp;
+    newUser.created_at = Utils.datetimeTimestamp();
     // build POST query 
     let x = 0;
     Object.keys(newUser).forEach(function (key) {
@@ -138,8 +138,7 @@ exports.update = (updatedUser) => __awaiter(this, void 0, void 0, function* () {
     }
     ;
     // add updated_at timestamp to updatedUser
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    updatedUser.updated_at = timestamp;
+    updatedUser.updated_at = Utils.datetimeTimestamp();
     // build query 
     let query = '';
     let preQuery = 'UPDATE users SET';

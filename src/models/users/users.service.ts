@@ -2,12 +2,13 @@
  * Data Model Interfaces
  */
 
+import e = require('express');
+
 import { User } from './user.interface';
 import { Users } from './users.interface';
-import { existsSync } from 'fs';
-import { time } from 'console';
 import { Http_Response } from './../http_responses/http_response.interface';
-import e = require('express');
+
+var Utils = require('../../utils/index'); 
 
 /**
  * In-Memory Store
@@ -100,8 +101,7 @@ export const create = async (newUser: User): Promise<Http_Response> => {
   }  
       
   // add created_at timestamp to newUser
-  let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  newUser.created_at = timestamp;
+  newUser.created_at = Utils.datetimeTimestamp();
 
   // build POST query 
   let x: number = 0; 
@@ -167,8 +167,7 @@ export const update = async (updatedUser: User): Promise<Http_Response> => {
   };
 
   // add updated_at timestamp to updatedUser
-  let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  updatedUser.updated_at = timestamp;
+  updatedUser.updated_at = Utils.datetimeTimestamp();
 
   // build query 
   let query: string = ''; 

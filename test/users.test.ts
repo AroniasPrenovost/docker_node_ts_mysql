@@ -4,6 +4,8 @@ import chaiHttp = require('chai-http');
 
 import app from '../src/App';
 
+var Utils = require('../src/utils/index'); 
+
 chai.use(chaiHttp);
 const expect = chai.expect;
 
@@ -69,7 +71,7 @@ describe('GET api/v1/users', () => {
    */
   describe('POST api/v1/users', () => {
 
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
+    let timestamp = Utils.datetimeTimestamp(); 
     let testJSON = {
       'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@test.com`, 
       'first_name': 'test account', 
@@ -96,7 +98,7 @@ describe('GET api/v1/users', () => {
    */
    describe('PUT api/v1/users', () => {
 
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
+    let timestamp = Utils.datetimeTimestamp();  
     let testJSON = {
       'id': 1,
       'password': `password-${timestamp.replace(/ +/g, '-')}`,

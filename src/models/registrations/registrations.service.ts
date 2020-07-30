@@ -9,6 +9,8 @@ import { Registration } from './registration.interface';
 import { Registrations } from './registrations.interface';
 import { Http_Response } from './../http_responses/http_response.interface';
 
+var Utils = require('../../utils/index'); 
+
 /**
  * In-Memory Store
  */
@@ -106,8 +108,7 @@ export const create = async (newRegistration: Registration): Promise<Http_Respon
     let newUserPreQuery: string = 'INSERT INTO users';
     let newUserQueryKeys: string[] = [];
     let newUserPostQuery: string = 'VALUES(';
-
-    let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    
     let password: string = 'placeholder';
 
     // make flat new user object to build insert query 
@@ -116,7 +117,7 @@ export const create = async (newRegistration: Registration): Promise<Http_Respon
       last_name: newRegistration.registration_meta.last_name,
       email_address: newRegistration.registration_meta.email_address,
       password: password,
-      created_at: timestamp
+      created_at: Utils.datetimeTimestamp()
     };
 
     // build users INSERT query
@@ -142,8 +143,7 @@ export const create = async (newRegistration: Registration): Promise<Http_Respon
     newRegistration.user_id = newUserResponse['insertId'];
   }
 
-  let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  newRegistration.created_at = timestamp; 
+  newRegistration.created_at = Utils.datetimeTimestamp();  
 
   // check if registration exist w/ same user_id + event_id 
   // if yes: update exisiting. if no: create
@@ -152,8 +152,7 @@ export const create = async (newRegistration: Registration): Promise<Http_Respon
 
   if (Object.keys(existingRegistrationResponse).length) {  
 
-    let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    newRegistration.updated_at = timestamp; 
+    newRegistration.updated_at = Utils.datetimeTimestamp(); 
   
     // build query 
     let updatedRegistrationQuery: string = ''; 
@@ -259,8 +258,7 @@ export const update = async (updatedRegistration: Registration): Promise<Http_Re
   };
 
   // add updated_at timestamp to updatedRegistration
-  let timestamp: string = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  updatedRegistration.updated_at = timestamp;
+  updatedRegistration.updated_at = Utils.datetimeTimestamp();
 
   // build query 
   let query: string = ''; 

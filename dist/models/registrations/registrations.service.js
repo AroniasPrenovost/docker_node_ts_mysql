@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Utils = require('../../utils/index');
 /**
  * In-Memory Store
  */
@@ -89,7 +90,6 @@ exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* 
         let newUserPreQuery = 'INSERT INTO users';
         let newUserQueryKeys = [];
         let newUserPostQuery = 'VALUES(';
-        let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         let password = 'placeholder';
         // make flat new user object to build insert query 
         let mockNewUserObject = {
@@ -97,7 +97,7 @@ exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* 
             last_name: newRegistration.registration_meta.last_name,
             email_address: newRegistration.registration_meta.email_address,
             password: password,
-            created_at: timestamp
+            created_at: Utils.datetimeTimestamp()
         };
         // build users INSERT query
         let x = 0;
@@ -120,15 +120,13 @@ exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* 
         // add foreign key from 'user' to newRegistration
         newRegistration.user_id = newUserResponse['insertId'];
     }
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    newRegistration.created_at = timestamp;
+    newRegistration.created_at = Utils.datetimeTimestamp();
     // check if registration exist w/ same user_id + event_id 
     // if yes: update exisiting. if no: create
     let selectRegistrationQuery = `SELECT * FROM registrations WHERE user_id=${newRegistration.user_id} AND event_id=${newRegistration.event_id}`;
     let existingRegistrationResponse = yield dbPool.query(selectRegistrationQuery);
     if (Object.keys(existingRegistrationResponse).length) {
-        let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-        newRegistration.updated_at = timestamp;
+        newRegistration.updated_at = Utils.datetimeTimestamp();
         // build query 
         let updatedRegistrationQuery = '';
         let updateRegistrationPreQuery = 'UPDATE registrations SET';
@@ -221,8 +219,7 @@ exports.update = (updatedRegistration) => __awaiter(this, void 0, void 0, functi
     }
     ;
     // add updated_at timestamp to updatedRegistration
-    let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    updatedRegistration.updated_at = timestamp;
+    updatedRegistration.updated_at = Utils.datetimeTimestamp();
     // build query 
     let query = '';
     let preQuery = 'UPDATE registrations SET';

@@ -7,6 +7,8 @@ import { Registration } from '../src/models/registrations/registration.interface
 import { Registration_Meta } from '../src/models/registrations/registration_meta.interface';
 import { RegistrationsRouter } from '../src/models/registrations/registrations.router';
 
+var Utils = require('../src/utils/index'); 
+
 chai.use(chaiHttp);
 const expect = chai.expect;
 
@@ -84,7 +86,7 @@ describe('GET api/v1/registrations', () => {
    */
   // describe('POST api/v1/registrations', () => {
 
-  //   let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
+  //   let timestamp = Utils.datetimeTimestamp(); 
   //   let testJSON = {
   //     'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@test.com`, 
   //     'first_name': 'test account', 
@@ -111,7 +113,7 @@ describe('GET api/v1/registrations', () => {
    */
   //  describe('PUT api/v1/registrations', () => {
 
-  //   let timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
+  //   let timestamp = Utils.datetimeTimestamp(); 
   //   let testJSON = {
   //     'id': 1,
   //     'password': `password-${timestamp.replace(/ +/g, '-')}`,
