@@ -204,7 +204,7 @@ exports.update = (updatedRegistration) => __awaiter(this, void 0, void 0, functi
     let registration_id = updatedRegistration.id;
     if (registration_id == null) {
         http_response.status_code = 400;
-        http_response.message = 'Missing id field.';
+        http_response.message = 'Missing registration id field.';
         http_response.data = {};
         return http_response;
     }
@@ -226,7 +226,9 @@ exports.update = (updatedRegistration) => __awaiter(this, void 0, void 0, functi
     let queryKeys = [];
     let postQuery = `WHERE id=${registration_id}`;
     Object.keys(updatedRegistration).forEach(function (key) {
-        queryKeys.push(`${key}='${updatedRegistration[key]}'`);
+        if (key !== 'id') {
+            queryKeys.push(`${key}='${updatedRegistration[key]}'`);
+        }
     });
     query = `${preQuery} ${queryKeys} ${postQuery}`;
     yield dbPool.query(query);

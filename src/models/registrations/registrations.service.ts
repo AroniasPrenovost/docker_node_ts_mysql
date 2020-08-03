@@ -267,19 +267,19 @@ export const update = async (updatedRegistration: Registration): Promise<Http_Re
   let postQuery: string = `WHERE id=${registration_id}`;
 
   Object.keys(updatedRegistration).forEach(function(key) {
-    queryKeys.push(`${key}='${updatedRegistration[key]}'`); 
+    if (key !== 'id') {
+      queryKeys.push(`${key}='${updatedRegistration[key]}'`); 
+    }
   });
 
   query = `${preQuery} ${queryKeys} ${postQuery}`; 
 
+  await dbPool.query(query);      
 
-  console.log(query);
-  // await dbPool.query(query);      
-
-  // http_response.status_code = 200;
-  // http_response.message = 'Successfully updated registration.';
-  // http_response.data = updatedRegistration
-  // return http_response;
+  http_response.status_code = 200;
+  http_response.message = 'Successfully updated registration.';
+  http_response.data = updatedRegistration
+  return http_response;
 };
 
 // DELETE registrations/

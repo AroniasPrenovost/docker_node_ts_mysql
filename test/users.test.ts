@@ -73,7 +73,7 @@ describe('GET api/v1/users', () => {
 
     let timestamp = Utils.datetimeTimestamp(); 
     let testJSON = {
-      'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@test.com`, 
+      'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@testUsers.com`, 
       'first_name': 'test account', 
       'last_name': 'test account', 
       'password': 'test',
