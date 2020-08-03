@@ -3,7 +3,7 @@ require('dotenv').config();
 // npm install util.promisify
 // require('util.promisify').shim();
 // -v < 8.x  has problem with async await so upgrade -v to v9.6.1 for this to work. 
-// connection pool https://github.com/mysqljs/mysql   [1]
+// connection pool https://github.com/mysqljs/mysql   
 var mysql = require('mysql');
 var util = require('util');
 var pool = mysql.createPool({
