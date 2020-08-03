@@ -241,7 +241,7 @@ export const update = async (updatedRegistration: Registration): Promise<Http_Re
   let registration_id: number = updatedRegistration.id; 
   if (registration_id == null) {
     http_response.status_code = 400;
-    http_response.message = 'Missing id field.';
+    http_response.message = 'Missing registration id field.';
     http_response.data = {}; 
     return http_response;
   }  
@@ -271,12 +271,15 @@ export const update = async (updatedRegistration: Registration): Promise<Http_Re
   });
 
   query = `${preQuery} ${queryKeys} ${postQuery}`; 
-  await dbPool.query(query);      
 
-  http_response.status_code = 200;
-  http_response.message = 'Successfully updated registration.';
-  http_response.data = updatedRegistration
-  return http_response;
+
+  console.log(query);
+  // await dbPool.query(query);      
+
+  // http_response.status_code = 200;
+  // http_response.message = 'Successfully updated registration.';
+  // http_response.data = updatedRegistration
+  // return http_response;
 };
 
 // DELETE registrations/
