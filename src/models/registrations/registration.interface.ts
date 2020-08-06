@@ -1,9 +1,9 @@
-import { Registration_Meta } from './registration_meta.interface';
+import { RegistrationMeta } from './registrationMeta.interface';
 
 export interface Registration {
   id: number;                           // generated  
   registration_state: string;           // 'unconfirmed'
-  registration_meta: Registration_Meta;
+  registration_meta: RegistrationMeta;
   user_id: number;                      // foreign key used in 'users' table, users may have mmultiple registrations 
   event_id: number;                     // registration-specific  
   created_at: string,                   // generated 

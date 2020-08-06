@@ -23,11 +23,11 @@ exports.RegistrationsRouter = express.Router();
 // GET registrations/
 exports.RegistrationsRouter.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const http_response = yield RegistrationsService.getAll();
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield RegistrationsService.getAll();
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -40,11 +40,11 @@ exports.RegistrationsRouter.get('/', (req, res) => __awaiter(this, void 0, void 
 exports.RegistrationsRouter.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
-        const http_response = yield RegistrationsService.find(id);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield RegistrationsService.find(id);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -57,11 +57,11 @@ exports.RegistrationsRouter.get('/:id', (req, res) => __awaiter(this, void 0, vo
 exports.RegistrationsRouter.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const registration = req.body;
-        const http_response = yield RegistrationsService.create(registration);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield RegistrationsService.create(registration);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -74,11 +74,11 @@ exports.RegistrationsRouter.post('/', (req, res) => __awaiter(this, void 0, void
 exports.RegistrationsRouter.put('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const registration = req.body;
-        const http_response = yield RegistrationsService.update(registration);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield RegistrationsService.update(registration);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });

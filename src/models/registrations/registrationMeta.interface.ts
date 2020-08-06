@@ -1,4 +1,4 @@
-export interface Registration_Meta {
+export interface RegistrationMeta {
     first_name: string,     // will override existing User first_name column
     last_name: string,      // will override existing User last_name column     
     phone_number: number;

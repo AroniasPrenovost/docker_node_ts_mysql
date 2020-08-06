@@ -18,12 +18,12 @@ var Utils = require('../../utils/index');
 var dbPool = require('../../database/database');
 /**
  * Service Methods
- * Each method returns an 'Http_Response' object to {model}.router
+ * Each method returns an 'HttpResponse' object to {model}.router
  *
  */
 // GET users/
 exports.getAll = () => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -32,19 +32,19 @@ exports.getAll = () => __awaiter(this, void 0, void 0, function* () {
     let rows = yield dbPool.query(query);
     let users = JSON.parse(JSON.stringify(rows));
     if (Object.keys(users).length) {
-        http_response.status_code = 200;
-        http_response.message = 'Successfully retrieved users.';
-        http_response.data = users;
-        return http_response;
+        httpResponse.status_code = 200;
+        httpResponse.message = 'Successfully retrieved users.';
+        httpResponse.data = users;
+        return httpResponse;
     }
-    http_response.status_code = 204;
-    http_response.message = 'No users found.';
-    http_response.data = {};
-    return http_response;
+    httpResponse.status_code = 204;
+    httpResponse.message = 'No users found.';
+    httpResponse.data = {};
+    return httpResponse;
 });
 // GET users/:id
 exports.find = (id) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -53,19 +53,19 @@ exports.find = (id) => __awaiter(this, void 0, void 0, function* () {
     let rows = yield dbPool.query(query);
     let user = JSON.parse(JSON.stringify(rows))[0];
     if (user == undefined) {
-        http_response.status_code = 404;
-        http_response.message = 'No user found with the given id.';
-        http_response.data = { 'id': id };
-        return http_response;
+        httpResponse.status_code = 404;
+        httpResponse.message = 'No user found with the given id.';
+        httpResponse.data = { 'id': id };
+        return httpResponse;
     }
-    http_response.status_code = 200;
-    http_response.message = 'Successfully retrieved user by id.';
-    http_response.data = user;
-    return http_response;
+    httpResponse.status_code = 200;
+    httpResponse.message = 'Successfully retrieved user by id.';
+    httpResponse.data = user;
+    return httpResponse;
 });
 // POST users/
 exports.create = (newUser) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -100,41 +100,41 @@ exports.create = (newUser) => __awaiter(this, void 0, void 0, function* () {
     let qy = `SELECT * FROM users WHERE email_address='${email}'`;
     let rs = yield dbPool.query(qy);
     if (Object.keys(rs).length) {
-        http_response.status_code = 403;
-        http_response.message = 'User already exists.';
-        http_response.data = { 'email': email };
-        return http_response;
+        httpResponse.status_code = 403;
+        httpResponse.message = 'User already exists.';
+        httpResponse.data = { 'email': email };
+        return httpResponse;
     }
     // add new user to table 
     query = `${preQuery}(${queryKeys}) ${postQuery}`;
     yield dbPool.query(query);
-    http_response.status_code = 201;
-    http_response.message = 'Successfully added new user.';
-    http_response.data = { 'email': email };
-    return http_response;
+    httpResponse.status_code = 201;
+    httpResponse.message = 'Successfully added new user.';
+    httpResponse.data = { 'email': email };
+    return httpResponse;
 });
 // PUT users/
 exports.update = (updatedUser) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
     };
     let user_id = updatedUser.id;
     if (user_id == null) {
-        http_response.status_code = 400;
-        http_response.message = 'Missing id field.';
-        http_response.data = {};
-        return http_response;
+        httpResponse.status_code = 400;
+        httpResponse.message = 'Missing id field.';
+        httpResponse.data = {};
+        return httpResponse;
     }
     // check if valid user id 
     let qy = `SELECT * FROM users WHERE id='${user_id}'`;
     let rs = yield dbPool.query(qy);
     if (!Object.keys(rs).length) {
-        http_response.status_code = 404;
-        http_response.message = 'User with this id does not exist.';
-        http_response.data = { 'id': user_id };
-        return http_response;
+        httpResponse.status_code = 404;
+        httpResponse.message = 'User with this id does not exist.';
+        httpResponse.data = { 'id': user_id };
+        return httpResponse;
     }
     ;
     // add updated_at timestamp to updatedUser
@@ -149,14 +149,14 @@ exports.update = (updatedUser) => __awaiter(this, void 0, void 0, function* () {
     });
     query = `${preQuery} ${queryKeys} ${postQuery}`;
     yield dbPool.query(query);
-    http_response.status_code = 200;
-    http_response.message = 'Successfully updated user.';
-    http_response.data = updatedUser;
-    return http_response;
+    httpResponse.status_code = 200;
+    httpResponse.message = 'Successfully updated user.';
+    httpResponse.data = updatedUser;
+    return httpResponse;
 });
 // DELETE users/
 exports.remove = (id) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}

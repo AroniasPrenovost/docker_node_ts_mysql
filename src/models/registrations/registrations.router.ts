@@ -7,7 +7,7 @@ import {Request, Response} from 'express';
 import * as RegistrationsService from './registrations.service';
 
 import { Registration } from './registration.interface';
-import { Http_Response } from './../http_responses/http_response.interface';
+import { HttpResponse } from './../httpResponses/httpResponse.interface';
 
 /**
  * Router Definition
@@ -23,12 +23,12 @@ export const RegistrationsRouter = express.Router();
 
 RegistrationsRouter.get('/', async (req: Request, res: Response) => {
   try {
-    const http_response: Http_Response = await RegistrationsService.getAll();
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await RegistrationsService.getAll();
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -43,12 +43,12 @@ RegistrationsRouter.get('/', async (req: Request, res: Response) => {
 RegistrationsRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    const http_response: Http_Response = await RegistrationsService.find(id);
-    let data = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await RegistrationsService.find(id);
+    let data = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -63,12 +63,12 @@ RegistrationsRouter.get('/:id', async (req: Request, res: Response) => {
 RegistrationsRouter.post('/', async (req: Request, res: Response) => {
   try {
     const registration: Registration = req.body;
-    const http_response: Http_Response = await RegistrationsService.create(registration);
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await RegistrationsService.create(registration);
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
     
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -83,12 +83,12 @@ RegistrationsRouter.post('/', async (req: Request, res: Response) => {
 RegistrationsRouter.put('/', async (req: Request, res: Response) => {
   try {
     const registration: Registration = req.body;
-    const http_response: Http_Response = await RegistrationsService.update(registration);
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await RegistrationsService.update(registration);
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });

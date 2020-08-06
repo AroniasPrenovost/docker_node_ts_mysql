@@ -6,7 +6,7 @@ import {Request, Response} from 'express';
 import * as express from 'express';
 import * as UsersService from './users.service';
 import { User } from './user.interface';
-import { Http_Response } from './../http_responses/http_response.interface';
+import { HttpResponse } from './../httpResponses/httpResponse.interface';
 
 /**
  * Router Definition
@@ -22,12 +22,12 @@ export const UsersRouter = express.Router();
 
 UsersRouter.get('/', async (req: Request, res: Response) => {
   try {
-    const http_response: Http_Response = await UsersService.getAll();
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await UsersService.getAll();
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -42,12 +42,12 @@ UsersRouter.get('/', async (req: Request, res: Response) => {
 UsersRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    const http_response: Http_Response = await UsersService.find(id);
-    let data = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await UsersService.find(id);
+    let data = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -62,12 +62,12 @@ UsersRouter.get('/:id', async (req: Request, res: Response) => {
 UsersRouter.post('/', async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
-    const http_response: Http_Response = await UsersService.create(user);
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await UsersService.create(user);
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
     
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });
@@ -82,12 +82,12 @@ UsersRouter.post('/', async (req: Request, res: Response) => {
 UsersRouter.put('/', async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
-    const http_response: Http_Response = await UsersService.update(user);
-    let data: Object = JSON.parse(JSON.stringify(http_response.data));
+    const httpResponse: HttpResponse = await UsersService.update(user);
+    let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
 
-    res.status(http_response.status_code)
+    res.status(httpResponse.status_code)
     .send({
-      message: http_response.message,
+      message: httpResponse.message,
       status: res.status,
       data
     });

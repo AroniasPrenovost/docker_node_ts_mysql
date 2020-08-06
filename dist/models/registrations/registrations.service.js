@@ -18,12 +18,12 @@ var Utils = require('../../utils/index');
 var dbPool = require('../../database/database');
 /**
  * Service Methods
- * Each method returns an 'Http_Response' object to {model}.router
+ * Each method returns an 'HttpResponse' object to {model}.router
  *
  */
 // GET registrations/
 exports.getAll = () => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -32,19 +32,19 @@ exports.getAll = () => __awaiter(this, void 0, void 0, function* () {
     let rows = yield dbPool.query(query);
     let registrations = JSON.parse(JSON.stringify(rows));
     if (Object.keys(registrations).length) {
-        http_response.status_code = 200;
-        http_response.message = 'Successfully retrieved registrations.';
-        http_response.data = registrations;
-        return http_response;
+        httpResponse.status_code = 200;
+        httpResponse.message = 'Successfully retrieved registrations.';
+        httpResponse.data = registrations;
+        return httpResponse;
     }
-    http_response.status_code = 204;
-    http_response.message = 'No registrations found.';
-    http_response.data = {};
-    return http_response;
+    httpResponse.status_code = 204;
+    httpResponse.message = 'No registrations found.';
+    httpResponse.data = {};
+    return httpResponse;
 });
 // GET registrations/:id
 exports.find = (id) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -53,19 +53,19 @@ exports.find = (id) => __awaiter(this, void 0, void 0, function* () {
     let rows = yield dbPool.query(query);
     let registration = JSON.parse(JSON.stringify(rows))[0];
     if (registration == undefined) {
-        http_response.status_code = 404;
-        http_response.message = 'No registration found with the given id.';
-        http_response.data = { 'id': id };
-        return http_response;
+        httpResponse.status_code = 404;
+        httpResponse.message = 'No registration found with the given id.';
+        httpResponse.data = { 'id': id };
+        return httpResponse;
     }
-    http_response.status_code = 200;
-    http_response.message = 'Successfully retrieved registration by id.';
-    http_response.data = registration;
-    return http_response;
+    httpResponse.status_code = 200;
+    httpResponse.message = 'Successfully retrieved registration by id.';
+    httpResponse.data = registration;
+    return httpResponse;
 });
 // POST registrations/
 exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
@@ -146,15 +146,15 @@ exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* 
         updatedRegistrationQuery = `${updateRegistrationPreQuery} ${updateRegistrationQueryKeys} ${updatedRegistrationPostQuery}`;
         let updatedRegistrationResponse = yield dbPool.query(updatedRegistrationQuery);
         if (updatedRegistrationResponse['affectedRows'] === 1) {
-            http_response.status_code = 200;
-            http_response.message = 'Successfully updated existing registration.';
-            http_response.data = newRegistration;
-            return http_response;
+            httpResponse.status_code = 200;
+            httpResponse.message = 'Successfully updated existing registration.';
+            httpResponse.data = newRegistration;
+            return httpResponse;
         }
-        http_response.status_code = 500;
-        http_response.message = 'Unable to update existing registration.';
-        http_response.data = newRegistration;
-        return http_response;
+        httpResponse.status_code = 500;
+        httpResponse.message = 'Unable to update existing registration.';
+        httpResponse.data = newRegistration;
+        return httpResponse;
     }
     // build new registration INSERT query
     let addNewRegQuery = '';
@@ -184,38 +184,38 @@ exports.create = (newRegistration) => __awaiter(this, void 0, void 0, function* 
     addNewRegQuery = `${newRegPreQuery}(${newRegQueryKeys}) ${newRegPostQuery}`;
     let newRegistrationResponse = yield dbPool.query(addNewRegQuery);
     if (newRegistrationResponse['affectedRows'] === 1) {
-        http_response.status_code = 201;
-        http_response.message = `Successfully added new registration and corresponding 'users' table record.`;
-        http_response.data = newRegistration;
-        return http_response;
+        httpResponse.status_code = 201;
+        httpResponse.message = `Successfully added new registration and corresponding 'users' table record.`;
+        httpResponse.data = newRegistration;
+        return httpResponse;
     }
-    http_response.status_code = 500;
-    http_response.message = 'Unable to add new registration';
-    http_response.data = newRegistration;
-    return http_response;
+    httpResponse.status_code = 500;
+    httpResponse.message = 'Unable to add new registration';
+    httpResponse.data = newRegistration;
+    return httpResponse;
 });
 // PUT registrations/
 exports.update = (updatedRegistration) => __awaiter(this, void 0, void 0, function* () {
-    let http_response = {
+    let httpResponse = {
         status_code: null,
         message: '',
         data: {}
     };
     let registration_id = updatedRegistration.id;
     if (registration_id == null) {
-        http_response.status_code = 400;
-        http_response.message = 'Missing registration id field.';
-        http_response.data = {};
-        return http_response;
+        httpResponse.status_code = 400;
+        httpResponse.message = 'Missing registration id field.';
+        httpResponse.data = {};
+        return httpResponse;
     }
     // check if valid registration id 
     let qy = `SELECT * FROM registrations WHERE id='${registration_id}'`;
     let rs = yield dbPool.query(qy);
     if (!Object.keys(rs).length) {
-        http_response.status_code = 404;
-        http_response.message = 'Registration with this id does not exist.';
-        http_response.data = { 'id': registration_id };
-        return http_response;
+        httpResponse.status_code = 404;
+        httpResponse.message = 'Registration with this id does not exist.';
+        httpResponse.data = { 'id': registration_id };
+        return httpResponse;
     }
     ;
     // add updated_at timestamp to updatedRegistration
@@ -232,10 +232,10 @@ exports.update = (updatedRegistration) => __awaiter(this, void 0, void 0, functi
     });
     query = `${preQuery} ${queryKeys} ${postQuery}`;
     yield dbPool.query(query);
-    http_response.status_code = 200;
-    http_response.message = 'Successfully updated registration.';
-    http_response.data = updatedRegistration;
-    return http_response;
+    httpResponse.status_code = 200;
+    httpResponse.message = 'Successfully updated registration.';
+    httpResponse.data = updatedRegistration;
+    return httpResponse;
 });
 // DELETE registrations/
 exports.remove = (id) => __awaiter(this, void 0, void 0, function* () {

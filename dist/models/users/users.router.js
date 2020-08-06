@@ -23,11 +23,11 @@ exports.UsersRouter = express.Router();
 // GET users/
 exports.UsersRouter.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
-        const http_response = yield UsersService.getAll();
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield UsersService.getAll();
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -40,11 +40,11 @@ exports.UsersRouter.get('/', (req, res) => __awaiter(this, void 0, void 0, funct
 exports.UsersRouter.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
-        const http_response = yield UsersService.find(id);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield UsersService.find(id);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -57,11 +57,11 @@ exports.UsersRouter.get('/:id', (req, res) => __awaiter(this, void 0, void 0, fu
 exports.UsersRouter.post('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const user = req.body;
-        const http_response = yield UsersService.create(user);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield UsersService.create(user);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
@@ -74,11 +74,11 @@ exports.UsersRouter.post('/', (req, res) => __awaiter(this, void 0, void 0, func
 exports.UsersRouter.put('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const user = req.body;
-        const http_response = yield UsersService.update(user);
-        let data = JSON.parse(JSON.stringify(http_response.data));
-        res.status(http_response.status_code)
+        const httpResponse = yield UsersService.update(user);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
             .send({
-            message: http_response.message,
+            message: httpResponse.message,
             status: res.status,
             data
         });
