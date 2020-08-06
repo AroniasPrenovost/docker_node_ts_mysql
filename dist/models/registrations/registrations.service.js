@@ -11,11 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Utils = require('../../utils/Index');
+var Utils = require('../../utils/index');
 /**
  * In-Memory Store
  */
-var dbPool = require('../../database/Database');
+var dbPool = require('../../database/database');
 /**
  * Service Methods
  * Each method returns an 'Http_Response' object to {model}.router

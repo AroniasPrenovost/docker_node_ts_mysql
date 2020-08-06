@@ -9,13 +9,13 @@ import { Registration } from './registration.interface';
 import { Registrations } from './registrations.interface';
 import { Http_Response } from './../http_responses/http_response.interface';
 
-var Utils = require('../../utils/Index'); 
+var Utils = require('../../utils/index'); 
 
 /**
  * In-Memory Store
  */
 
-var dbPool = require('../../database/Database'); 
+var dbPool = require('../../database/database'); 
 
 /**
  * Service Methods
