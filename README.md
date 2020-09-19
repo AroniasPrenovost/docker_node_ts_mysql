@@ -14,6 +14,11 @@
 $ npm run build ; gulp assets ; npm start
 ```
 
+### SwaggerUI docs 
+```
+{url}/api/v1/docs/
+```
+
 ### Data storage 
 
 MySQL
