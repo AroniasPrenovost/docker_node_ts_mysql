@@ -1,0 +1,314 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "RESTful API Example",
+        "description": "A fun learning project TypeScript & Node.js",
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/aroniasprenovost/"
+        } 
+    },
+    "host": "placeholder",
+    "basePath": "/api/v1/",
+    "tags": [
+        {
+        "name": "Users",
+        "description": "Get all Users from 'users' table."
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users from 'users' table.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add new user to 'users' table.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id of the user we want to retrieve",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Get User by Id",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update User by Id",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "User with updated property values",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }                        
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not updated"
+                    }
+                }
+            }
+        },
+        "/registrations": {
+            "get": {
+                "tags": [
+                    "Registrations"
+                ],
+                "summary": "Get all registrations in the system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/registrations"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Registrations"
+                ],
+                "summary": "Add new registration to 'registrations' table",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        }
+
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data"
+                    }
+                }
+            }
+        },
+        "/registrations/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "id of the registration we want to retrieve",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Registrations"
+                ],
+                "summary": "Get user by id from 'registrations' table",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Registration not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Registration by Id",
+                "tags": [
+                    "Registrations"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "Registration with updated property values",
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        }                        
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Registration"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Registration not updated"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "email_address": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Users": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/User"
+                    }
+                }
+            }
+        },
+        "RegistrationMeta": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "email_address": {
+                    "type": "string"
+                },
+                "contact_me": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Registration": {
+            "type": "object",
+            "properties": {
+                "registration_state": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "number"
+                },
+                "registration_meta": {
+                    "type": "object",
+                    "$ref": "#/definitions/RegistrationMeta"
+                }
+            }
+        },
+        "Registrations": {
+            "type": "object",
+            "properties": {
+                "registrations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Registration"
+                    }
+                }
+            }
+        }
+    }
+}

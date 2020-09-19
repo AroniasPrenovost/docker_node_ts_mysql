@@ -1,9 +1,19 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const http = require("http");
-const debug = require("debug");
-const app_1 = require("./app");
-debug('ts-express:server');
+const http = __importStar(require("http"));
+const debug_1 = __importDefault(require("debug"));
+const app_1 = __importDefault(require("./app"));
+debug_1.default('ts-express:server');
 const port = normalizePort(process.env.PORT || 3000);
 app_1.default.set('port', port);
 const server = http.createServer(app_1.default);
@@ -39,6 +49,6 @@ function onError(error) {
 function onListening() {
     let addr = server.address();
     let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
-    debug(`Listening on ${bind}`);
+    debug_1.default(`Listening on ${bind}`);
     console.log(`Listening on ${bind}`);
 }

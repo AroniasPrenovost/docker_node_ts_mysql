@@ -3,7 +3,9 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"
