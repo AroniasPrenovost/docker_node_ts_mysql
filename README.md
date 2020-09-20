@@ -7,11 +7,16 @@
 3. Install dependencies - `npm install`
 4. Compile - `npm run build`
 5. Compile assets - `gulp assets`
-6. Tests - `npm test`
+6. Tests - `npx test`
 7. Run the development server - `npm start`
 
 ```
 $ npm run build ; gulp assets ; npm start
+```
+
+### Unit tests with Jest
+```
+$ npx jest 
 ```
 
 ### SwaggerUI docs 
