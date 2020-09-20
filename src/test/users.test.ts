@@ -1,4 +1,3 @@
-// import { Console } from 'console';
 import app from '../app';
 
 const request = require('supertest');
