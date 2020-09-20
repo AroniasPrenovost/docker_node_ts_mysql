@@ -1,129 +1,125 @@
-// import * as chai from 'chai';
-// import chaiHttp = require('chai-http');
-// import app from '../src/App';
-// import { Registration } from '../src/models/registrations/registration.interface';
-// var Utils = require('../src/utils/index'); 
-// chai.use(chaiHttp);
-// const expect = chai.expect;
-//   /**
-//    * GET
-//    */
-//   describe('GET api/v1/registrations', () => {
-//     it('responds with JSON object', () => {
-//       return chai.request(app).get('/api/v1/registrations')
-//         .then(res => {
-//           expect(res.status).to.equal(200);
-//           expect(res).to.be.json;
-//           expect(res.body).to.be.an('object');
-//           expect(res.body.message).to.equal('Successfully retrieved registrations.');
-//         });
-//     });
-//     it('registration data should have all keys', () => {
-//       return chai.request(app).get('/api/v1/registrations')
-//         .then(res => {
-//           let RegistrationExample: Registration = res.body.data[0]; 
-//           expect(RegistrationExample).to.exist;
-//           expect(RegistrationExample).to.have.all.keys([
-//             'id',
-//             'registration_state',
-//             'registration_meta',
-//             'user_id',
-//             'event_id',
-//             'created_at',
-//             'updated_at',
-//             'anonymized_at'
-//           ]);
-//     });
-//   });
-//   /**
-//    * GET/:id
-//    */
-//   describe('GET api/v1/registrations/:id', () => {
-//     it('responds with single JSON object', () => {
-//       return chai.request(app).get('/api/v1/registrations/1')
-//         .then(res => {
-//           expect(res.status).to.equal(200);
-//           expect(res).to.be.json;
-//           expect(res.body).to.be.an('object');
-//           expect(res.body.message).to.equal('Successfully retrieved registration by id.');
-//         });
-//     });
-//     it('registration data should have all keys', () => {
-//       return chai.request(app).get('/api/v1/registrations/1')
-//     .then(res => {
-//       let RegistrationExample: Registration = res.body.data;
-//       expect(RegistrationExample).to.exist;
-//       expect(RegistrationExample).to.have.all.keys([
-//         'id',
-//         'registration_state',
-//         'registration_meta',
-//         'user_id',
-//         'event_id',
-//         'created_at',
-//         'updated_at',
-//         'anonymized_at'
-//       ]);
-//     });
-//     // it('should return aronprenovostmktg@gmail.com', () => {
-//     //   return chai.request(app).get('/api/v1/registrations/1')
-//     //     .then(res => {
-//     //       expect(res.body.data.email_address).to.equal('aronprenovostmktg@gmail.com');
-//     //     });
-//     // });
-//   });
-//   /**
-//    * POST
-//    */
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const app_1 = __importDefault(require("../app"));
+const request = require('supertest');
+var Utils = require('../utils/index');
+/**
+ * GET
+ */
+describe('GET api/v1/registrations', () => {
+    test('responds with JSON object of registrations', (done) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request(app_1.default).get('/api/v1/registrations');
+        expect(response.status).toBe(200);
+        expect(response.body.message).toEqual('Successfully retrieved registrations.');
+        expect(response.body instanceof Object).toBe(true);
+        expect(response.body.data[0]).toMatchObject({
+            id: expect.any(Number),
+            registration_state: expect.any(String),
+            registration_meta: expect.any(String),
+            user_id: expect.any(Number),
+            event_id: expect.any(Number),
+            created_at: expect.any(String),
+            updated_at: expect.any(String),
+        });
+        done();
+    }));
+});
+/**
+ * GET/:id
+ */
+describe('GET api/v1/registrations/:id', () => {
+    test('responds with single JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request(app_1.default).get('/api/v1/registrations/1');
+        expect(response.status).toBe(200);
+        expect(response.body.message).toEqual('Successfully retrieved registration by id.');
+        expect(response.body instanceof Object).toBe(true);
+        expect(response.body.data).toMatchObject({
+            id: expect.any(Number),
+            registration_state: expect.any(String),
+            registration_meta: expect.any(String),
+            user_id: expect.any(Number),
+            event_id: expect.any(Number),
+            created_at: expect.any(String),
+            updated_at: expect.any(String),
+        });
+        done();
+    }));
+});
+/**
+ * POST
+ */
 //   // to do... 
-//   // describe('POST api/v1/registrations', () => {
-//   //   let timestamp = Utils.datetimeTimestamp(); 
-//   //   let regMeta = { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "contact_me": true, "email_address": null}; 
-//   //   regMeta.email_address = `chaitest-${timestamp.replace(/ +/g, '-')}@testRegistrations.com`;  
-//   //   let testJSON = {
-//   //     'registration_state': 'confirmed',
-//   //     'event_id': 2,
-//   //     'registration_meta': JSON.stringify(regMeta), 
-//   //     'created_at': timestamp
-//   //     // 'id': generated by mysql 
-//   //     // 'user_id': if no user exists w/ reg_meta email_address, new user record is created and user_id is assigned
-//   //   }; 
-//   //   it('responds with JSON object', () => {
-//   //     return chai.request(app).post('/api/v1/registrations')
-//   //     .send(testJSON)
-//   //       .then(res => {
-//   //         console.log(res);
-//   //         return res; 
-//   //         expect(res.status).to.equal(201);
-//   //         expect(res).to.be.json;
-//   //         expect(res.body).to.be.an('object');
-//   //         expect(res.body.message).to.equal('Successfully updated registration.');
-//   //       });
-//   //   });
-//   // });
-//   /**
-//    * PUT
-//    */
-//    describe('PUT api/v1/registrations', () => {
-//     let timestamp = Utils.datetimeTimestamp(); 
-//     let testJSON = {
-//       'id': 1,
-//       'registration_state': 'unconfirmed',
-//       'updated_at': timestamp
-//     }; 
-//     it('responds with JSON object', () => {
-//       return chai.request(app).put('/api/v1/registrations')
-//       .send(testJSON)
-//         .then(res => {
-//           expect(res.status).to.equal(200);
-//           expect(res).to.be.json;
-//           expect(res.body).to.be.an('object');
-//           expect(res.body.message).to.equal('Successfully updated registration.');
-//         });
-//     });
-//   });
-//   /**
-//    * DELETE
-//    */
-//     // to do... 
-//   });
-// });
+/*
+describe('POST api/v1/registrations', () => {
+
+    let timestamp = Utils.datetimeTimestamp();
+    let regMeta = { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "contact_me": true, "email_address": null};
+    regMeta.email_address = `chaitest-${timestamp.replace(/ +/g, '-')}@testRegistrations.com`;
+
+    let testJSON = {
+        'registration_state': 'confirmed',
+        'event_id': 2,
+        'registration_meta': JSON.stringify(regMeta),
+        'created_at': timestamp
+        // 'id': generated by mysql
+        // 'user_id': if no user exists w/ reg_meta email_address, new user record is created and user_id is assigned
+    };
+
+    test('responds with JSON object', async (done) => {
+
+        let success_resp_1: string = "Successfully added new registration and corresponding 'users' table record.";
+        let success_resp_2: string = "Successfully updated existing registration.";
+
+        await request(app)
+            .post('/api/v1/registrations')
+            .send(testJSON)
+            .expect(201)
+            .then(async (response) => {
+                expect(response.status).toBe(201);
+                expect(response.body instanceof Object).toBe(true);
+                expect(response.body.message).toEqual(success_resp_1 || success_resp_2);
+            });
+
+        done();
+    });
+});
+*/
+/**
+ * PUT
+ */
+describe('PUT api/v1/registrations', () => {
+    let timestamp = Utils.datetimeTimestamp();
+    let testJSON = {
+        'id': 1,
+        'registration_state': 'unconfirmed',
+        'updated_at': timestamp
+    };
+    test('responds with JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
+        yield request(app_1.default)
+            .put('/api/v1/registrations')
+            .send(testJSON)
+            .expect(200)
+            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+            expect(response.status).toBe(200);
+            expect(response.body instanceof Object).toBe(true);
+            expect(response.body.message).toEqual('Successfully updated registration.');
+        }));
+        done();
+    }));
+});
+/**
+ * DELETE
+ */
+// to do... 

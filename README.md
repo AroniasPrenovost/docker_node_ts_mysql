@@ -18,6 +18,10 @@ $ npm run build ; gulp assets ; npm start
 ```
 $ npx jest 
 ```
+or 
+```
+$ npm run test 
+```
 
 ### SwaggerUI docs 
 ```
