@@ -3,6 +3,6 @@ export const datetimeTimestamp = () => {
     return timestamp; 
 }
 
-export const validateEmailAddress = s => {
+export const validateEmailAddress = (s: string) => {
     return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(s); 
 }
