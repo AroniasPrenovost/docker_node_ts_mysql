@@ -22,8 +22,8 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Import routes
  */
-const users_router_1 = require("./models/users/users.router");
-const registrations_router_1 = require("./models/registrations/registrations.router");
+const users_router_1 = require("./routes/users.router");
+const registrations_router_1 = require("./routes/registrations.router");
 /**
  * Creates and configures an ExpressJS web server
  */

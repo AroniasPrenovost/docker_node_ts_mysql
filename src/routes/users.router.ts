@@ -4,9 +4,9 @@
 
 import {Request, Response} from 'express';
 import * as express from 'express';
-import * as UsersService from './users.service';
-import { User } from './user.interface';
-import { HttpResponse } from './../httpResponses/httpResponse.interface';
+import * as UsersService from '../models/users/users.service';
+import { User } from '../models/users/user.interface';
+import { HttpResponse } from '../models/httpResponses/httpResponse.interface';
 
 /**
  * Router Definition

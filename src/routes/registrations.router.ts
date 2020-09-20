@@ -4,10 +4,10 @@
 
 import * as express from 'express';
 import {Request, Response} from 'express';
-import * as RegistrationsService from './registrations.service';
+import * as RegistrationsService from '../models/registrations/registrations.service';
 
-import { Registration } from './registration.interface';
-import { HttpResponse } from './../httpResponses/httpResponse.interface';
+import { Registration } from '../models/registrations/registration.interface';
+import { HttpResponse } from '../models/httpResponses/httpResponse.interface';
 
 /**
  * Router Definition

@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Import routes
  */ 
-import { UsersRouter } from './models/users/users.router';
-import { RegistrationsRouter } from './models/registrations/registrations.router';
+import { UsersRouter } from './routes/users.router';
+import { RegistrationsRouter } from './routes/registrations.router';
 /**
  * Creates and configures an ExpressJS web server
  */
