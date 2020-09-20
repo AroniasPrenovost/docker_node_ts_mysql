@@ -1,6 +1,3 @@
-
-
-
 import app from '../app';
 
 const request = require('supertest');
