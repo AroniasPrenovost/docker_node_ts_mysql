@@ -70,7 +70,7 @@ describe('GET api/v1/users/:id', () => {
 describe('POST api/v1/users', () => {
 
     let timestamp = Utils.datetimeTimestamp(); 
-    let testJSON = {
+    let testJSON: Object = {
         'email_address': `chaitest-${timestamp.replace(/ +/g, '-')}@testUsers.com`, 
         'first_name': 'test account', 
         'last_name': 'test account', 
@@ -100,7 +100,7 @@ describe('POST api/v1/users', () => {
 describe('PUT api/v1/users', () => {
 
     let timestamp = Utils.datetimeTimestamp();  
-    let testJSON = {
+    let testJSON: Object = {
         'id': 1,
         'password': `password-${timestamp.replace(/ +/g, '-')}`,
         'updated_at': timestamp
