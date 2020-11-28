@@ -3,9 +3,9 @@
  */
 
 import * as express from 'express';
-import {Request, Response} from 'express';
-import * as RegistrationsService from '../models/registrations/registrations.service';
+import { Request, Response } from 'express';
 
+import * as RegistrationsService from '../models/registrations/registrations.service';
 import { Registration } from '../models/registrations/registration.interface';
 import { HttpResponse } from '../models/httpResponses/httpResponse.interface';
 
@@ -20,7 +20,6 @@ export const RegistrationsRouter = express.Router();
  */
 
 // GET registrations/
-
 RegistrationsRouter.get('/', async (req: Request, res: Response) => {
   try {
     const httpResponse: HttpResponse = await RegistrationsService.getAll();
@@ -39,7 +38,6 @@ RegistrationsRouter.get('/', async (req: Request, res: Response) => {
 });
   
 // GET registrations/:id
-
 RegistrationsRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
@@ -59,7 +57,6 @@ RegistrationsRouter.get('/:id', async (req: Request, res: Response) => {
 });
 
 // POST registrations/
-  
 RegistrationsRouter.post('/', async (req: Request, res: Response) => {
   try {
     const registration: Registration = req.body;
@@ -79,7 +76,6 @@ RegistrationsRouter.post('/', async (req: Request, res: Response) => {
 });
 
 // PUT registrations/
-
 RegistrationsRouter.put('/', async (req: Request, res: Response) => {
   try {
     const registration: Registration = req.body;
@@ -99,7 +95,6 @@ RegistrationsRouter.put('/', async (req: Request, res: Response) => {
 });
 
 // DELETE registrations/
-
 RegistrationsRouter.delete('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);

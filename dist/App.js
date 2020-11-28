@@ -22,10 +22,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const bodyParser = __importStar(require("body-parser"));
-require('dotenv').config();
+const rateLimiter_1 = require("./middlewares/rateLimiter");
 const swaggerUi = require('swagger-ui-express');
 const swagger_json_1 = __importDefault(require("./swagger.json"));
 if (process.env.NODE_ENV === 'development') {
@@ -51,6 +52,7 @@ class App {
         this.express.use(morgan_1.default('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(rateLimiter_1.customRedisRateLimiter);
     }
     // Configure API endpoints.
     routes() {

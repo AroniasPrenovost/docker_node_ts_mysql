@@ -2,7 +2,7 @@
  * Required External Modules and Interfaces
  */
 
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import * as express from 'express';
 import * as UsersService from '../models/users/users.service';
 import { User } from '../models/users/user.interface';
@@ -19,7 +19,6 @@ export const UsersRouter = express.Router();
  */
 
 // GET users/
-
 UsersRouter.get('/', async (req: Request, res: Response) => {
   try {
     const httpResponse: HttpResponse = await UsersService.getAll();
@@ -38,7 +37,6 @@ UsersRouter.get('/', async (req: Request, res: Response) => {
 });
   
 // GET users/:id
-
 UsersRouter.get('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
@@ -58,7 +56,6 @@ UsersRouter.get('/:id', async (req: Request, res: Response) => {
 });
   
 // POST users/
-
 UsersRouter.post('/', async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
@@ -78,7 +75,6 @@ UsersRouter.post('/', async (req: Request, res: Response) => {
 });
 
 // PUT users/
-
 UsersRouter.put('/', async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
@@ -98,7 +94,6 @@ UsersRouter.put('/', async (req: Request, res: Response) => {
 });
   
 // DELETE users/
-
 UsersRouter.delete('/:id', async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);

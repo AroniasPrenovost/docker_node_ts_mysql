@@ -11,7 +11,12 @@
 7. Run the development server - `npm start`
 
 ```
-$ npm run build ; gulp assets ; npm start
+$ npm run build ; gulp assets ; npx jest ; npm start
+```
+
+### Run Redis server in separate window 
+```sh 
+$ redis-server
 ```
 
 ### Unit tests with Jest

@@ -1,7 +1,11 @@
+require('dotenv').config();
+
 import express from 'express';
 import logger from 'morgan';
 import * as bodyParser from 'body-parser';
-require('dotenv').config();
+
+import { customRedisRateLimiter } from './middlewares/rateLimiter'; 
+
 const swaggerUi = require('swagger-ui-express');
 import swaggerDocument from './swagger.json';
 if (process.env.NODE_ENV === 'development') {
@@ -29,6 +33,7 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(customRedisRateLimiter);
   }
   // Configure API endpoints.
   private routes(): void {
