@@ -27,7 +27,9 @@ export const customRedisRateLimiter = (req, res, next) => {
         
         const currentRequestTime = new Date(); 
         
-        // console.log(record);
+        console.log(typeof record);
+        console.log(record);
+
         
         //  if no record is found, create a new record for user and store to redis
         if (record == null) {
