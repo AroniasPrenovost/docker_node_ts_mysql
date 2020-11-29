@@ -1,7 +1,7 @@
 import * as redis from 'redis';
 import { HttpResponse } from '../models/httpResponses/httpResponse.interface';
 import { RateLimitConfig } from '../models/rateLimits/rateLimitConfig.interface';
-// import { RequestLog, VisitorRecord } from '../models/rateLimits/visitorRecord.interface';
+import { RequestLog, VisitorRecord } from '../models/rateLimits/visitorRecord.interface';
 
 let rateLimit: RateLimitConfig = {
     window_size_in_hours: 24,
@@ -31,12 +31,15 @@ export const customRedisRateLimiter = (req, res, next) => {
         
         //  if no record is found, create a new record for user and store to redis
         if (record == null) {
-            let newRecord = [];
-            let requestLog = {
-                requestTimeStamp: currentRequestTime.getTime(),
-                requestCount: 1
+         
+            let requestLog: RequestLog = {
+                request_timestamp: currentRequestTime.getTime(),
+                request_count: 1
             };
-            newRecord.push(requestLog);
+
+            let newRecord: VisitorRecord = [requestLog];
+
+            // newRecord.push(requestLog);
             redisClient.set(req.ip, JSON.stringify(newRecord));
             next();
         }
@@ -48,12 +51,12 @@ export const customRedisRateLimiter = (req, res, next) => {
         let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
 
         let requestsWithinWindow = data.filter(entry => {
-            return entry.requestTimeStamp > windowStartTimestamp;
+            return entry.request_timestamp > windowStartTimestamp;
         });
         
         console.log('requestsWithinWindow', requestsWithinWindow);
         let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
-            return accumulator + entry.requestCount;
+            return accumulator + entry.request_count;
         }, 0);
 
         // return error if # of requests >= rateLimit.window_max_request_count
@@ -84,15 +87,15 @@ export const customRedisRateLimiter = (req, res, next) => {
             let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
 
             //  if interval has not passed since last request log, increment counter
-            if (lastRequestLog.requestTimeStamp > potentialCurrentWindowIntervalStartTimeStamp) {
-                lastRequestLog.requestCount++;
+            if (lastRequestLog.request_timestamp > potentialCurrentWindowIntervalStartTimeStamp) {
+                lastRequestLog.request_count++;
                 data[data.length - 1] = lastRequestLog;
             } else {
 
                 //  if interval has passed, log new entry for current user and timestamp
                 data.push({
-                    requestTimeStamp: currentRequestTime.getTime,
-                    requestCount: 1
+                    request_timestamp: currentRequestTime.getTime,
+                    request_count: 1
                 });
             }
             redisClient.set(req.ip, JSON.stringify(data));
