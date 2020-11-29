@@ -24,7 +24,6 @@ var dbPool = require('../../database/database');
  */
 
 // GET registrations/
-
 export const getAll = async (): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -51,7 +50,6 @@ export const getAll = async (): Promise<HttpResponse> => {
 };
 
 // GET registrations/:id
-
 export const find = async (id: number): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -78,7 +76,6 @@ export const find = async (id: number): Promise<HttpResponse> => {
 };
 
 // POST registrations/
-
 export const create = async (newRegistration: Registration): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -229,7 +226,6 @@ export const create = async (newRegistration: Registration): Promise<HttpRespons
 };
 
 // PUT registrations/
-
 export const update = async (updatedRegistration: Registration): Promise<HttpResponse> => {
   
   let httpResponse: HttpResponse = {
@@ -283,7 +279,6 @@ export const update = async (updatedRegistration: Registration): Promise<HttpRes
 };
 
 // DELETE registrations/
-
 export const remove = async (id: number): Promise<HttpResponse> => {
 
   let http_response: HttpResponse = {

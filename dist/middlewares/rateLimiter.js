@@ -38,7 +38,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
                 throw err;
             const currentRequestTime = new Date();
             console.log(record);
-            //  if no record is found , create a new record for user and store to redis
+            //  if no record is found, create a new record for user and store to redis
             if (record == null) {
                 let newRecord = [];
                 let requestLog = {
@@ -49,7 +49,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
                 redisClient.set(req.ip, JSON.stringify(newRecord));
                 next();
             }
-            // if record is found, parse it's value and calculate number of requests users has made within the last window
+            // if record is found, parse it's value and calculate # of requests users has made within WINDOW_LOG_INTERVAL_IN_HOURS
             let data = JSON.parse(record);
             let windowRequestTime = new Date();
             let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - WINDOW_SIZE_IN_HOURS);
@@ -60,11 +60,24 @@ exports.customRedisRateLimiter = (req, res, next) => {
             let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
                 return accumulator + entry.requestCount;
             }, 0);
-            // if number of requests made is greater than or equal to the desired maximum, return error
+            // return error if # of requests >= MAX_WINDOW_REQUEST_COUNT
             if (totalWindowRequestsCount >= MAX_WINDOW_REQUEST_COUNT) {
-                res
-                    .status(429)
-                    .jsend.error(`You have exceeded the ${MAX_WINDOW_REQUEST_COUNT} requests in ${WINDOW_SIZE_IN_HOURS} hrs limit!`);
+                let httpResponse = {
+                    status_code: 429,
+                    message: `You have exceeded the ${MAX_WINDOW_REQUEST_COUNT} requests in ${WINDOW_SIZE_IN_HOURS} hrs limit!`,
+                    data: {}
+                };
+                try {
+                    res.status(httpResponse.status_code)
+                        .send({
+                        message: httpResponse.message,
+                        status: res.status,
+                        data
+                    });
+                }
+                catch (e) {
+                    res.status(404).send(e.message);
+                }
             }
             else {
                 // if number of requests made is less than allowed maximum, log new entry

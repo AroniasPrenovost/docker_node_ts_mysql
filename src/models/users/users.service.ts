@@ -23,7 +23,6 @@ var dbPool = require('../../database/database');
  */
 
 // GET users/
-
 export const getAll = async (): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -50,7 +49,6 @@ export const getAll = async (): Promise<HttpResponse> => {
 };
 
 // GET users/:id
-
 export const find = async (id: number): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -77,7 +75,6 @@ export const find = async (id: number): Promise<HttpResponse> => {
 };
 
 // POST users/
-
 export const create = async (newUser: User): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
@@ -138,7 +135,6 @@ export const create = async (newUser: User): Promise<HttpResponse> => {
 };
 
 // PUT users/
-
 export const update = async (updatedUser: User): Promise<HttpResponse> => {
   
   let httpResponse: HttpResponse = {
@@ -189,7 +185,6 @@ export const update = async (updatedUser: User): Promise<HttpResponse> => {
 };
 
 // DELETE users/
-
 export const remove = async (id: number): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
