@@ -11,7 +11,7 @@ let rateLimit: RateLimitConfig = {
 
 const redisClient = redis.createClient();
 
-export const customRedisRateLimiter = (req, res, next) => {
+export const customRedisRateLimiter = (req: any, res: any, next: any) => {
 
     try {
         

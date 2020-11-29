@@ -61,8 +61,6 @@ exports.customRedisRateLimiter = (req, res, next) => {
             let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
                 return accumulator + entry.request_count;
             }, 0);
-            console.log(totalWindowRequestsCount);
-            console.log(typeof totalWindowRequestsCount);
             // return error if # of requests >= rateLimit.window_max_request_count
             if (totalWindowRequestsCount >= rateLimit.window_max_request_count) {
                 let httpResponse = {
