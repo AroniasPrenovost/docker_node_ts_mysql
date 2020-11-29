@@ -23,84 +23,84 @@ export const customRedisRateLimiter = (req, res, next) => {
         
         // fetch records of current user using IP address, returns null when no record is found
         redisClient.get(req.ip, function(err, record) {
-        if (err) throw err;
-        
-        const currentRequestTime = new Date(); 
-        
-        console.log(typeof record);
-        console.log(record);
-
-        
-        //  if no record is found, create a new record for user and store to redis
-        if (record == null) {
-         
-            let requestLog: RequestLog = {
-                request_timestamp: currentRequestTime.getTime(),
-                request_count: 1
-            };
-
-            let newRecord: VisitorRecord = [requestLog];
-            redisClient.set(req.ip, JSON.stringify(newRecord));
-            next();
-        }
-        
-        // if record is found, parse it's value and calculate # of requests users has made within WINDOW_LOG_INTERVAL_IN_HOURS
-        let data = JSON.parse(record);
-
-        let windowRequestTime = new Date(); 
-        let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
-
-        let requestsWithinWindow = data.filter(entry => {
-            return entry.request_timestamp > windowStartTimestamp;
-        });
-        
-        console.log('requestsWithinWindow', requestsWithinWindow);
-        let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
-            return accumulator + entry.request_count;
-        }, 0);
-
-        // return error if # of requests >= rateLimit.window_max_request_count
-        if (totalWindowRequestsCount >= rateLimit.window_max_request_count) {
-
-            let httpResponse: HttpResponse = {
-                status_code: 429, 
-                message: `You have exceeded the ${rateLimit.window_max_request_count} requests in ${rateLimit.window_size_in_hours} hrs limit!`,
-                data: {}
-            };
-
-            try {
-                res.status(httpResponse.status_code)
-                .send({
-                  message: httpResponse.message,
-                  status: res.status,
-                  data
-                });
+            if (err) throw err;
             
-              } catch (e) {
-                res.status(404).send(e.message);
-              } 
-
-        } else {
+            const currentRequestTime = new Date(); 
             
-            // if number of requests made is less than allowed maximum, log new entry
-            let lastRequestLog = data[data.length - 1];
-            let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
-
-            //  if interval has not passed since last request log, increment counter
-            if (lastRequestLog.request_timestamp > potentialCurrentWindowIntervalStartTimeStamp) {
-                lastRequestLog.request_count++;
-                data[data.length - 1] = lastRequestLog;
-            } else {
-
-                //  if interval has passed, log new entry for current user and timestamp
-                data.push({
-                    request_timestamp: currentRequestTime.getTime,
+            console.log(record);
+            
+            //  if no record is found, create a new record for user and store to redis
+            if (record == null) {
+            
+                let requestLog: RequestLog = {
+                    request_timestamp: currentRequestTime.getTime(),
                     request_count: 1
-                });
+                };
+
+                let newRecord: VisitorRecord = [requestLog];
+                
+                redisClient.set(req.ip, JSON.stringify(newRecord));
+                next();
             }
-            redisClient.set(req.ip, JSON.stringify(data));
-            next();
-        }
+            
+            // if record is found, parse it's value and calculate # of requests users have made within WINDOW_LOG_INTERVAL_IN_HOURS
+            let visitorRecord: VisitorRecord = JSON.parse(record);
+
+            let windowRequestTime = new Date(); 
+            let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
+
+            let requestsWithinWindow = visitorRecord.filter(entry => {
+                return entry.request_timestamp > windowStartTimestamp;
+            });
+            
+            console.log('requestsWithinWindow', requestsWithinWindow);
+            let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
+                return accumulator + entry.request_count;
+            }, 0);
+
+            // return error if # of requests >= rateLimit.window_max_request_count
+            if (totalWindowRequestsCount >= rateLimit.window_max_request_count) {
+
+                let httpResponse: HttpResponse = {
+                    status_code: 429, 
+                    message: `You have exceeded the ${rateLimit.window_max_request_count} requests in ${rateLimit.window_size_in_hours} hrs limit!`,
+                    data: visitorRecord
+                };
+
+                try {
+                    res.status(httpResponse.status_code)
+                    .send({
+                        message: httpResponse.message,
+                        status: res.status,
+                        data: httpResponse.data
+                    });
+                
+                } catch (e) {
+                    res.status(404).send(e.message);
+                } 
+
+            } else {
+                
+                // if number of requests made is less than allowed maximum, log new entry
+                let lastRequestLog = visitorRecord[visitorRecord.length - 1];
+                let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
+
+                //  if interval has not passed since last request log, increment counter
+                if (lastRequestLog.request_timestamp > potentialCurrentWindowIntervalStartTimeStamp) {
+                    lastRequestLog.request_count++;
+                    visitorRecord[visitorRecord.length - 1] = lastRequestLog;
+                } else {
+
+                    //  if interval has passed, log new entry for current user and timestamp
+                    visitorRecord.push({
+                        request_timestamp: currentRequestTime.getTime(),
+                        request_count: 1
+                    });
+                }
+                
+                redisClient.set(req.ip, JSON.stringify(visitorRecord));
+                next();
+            }
         });
     } catch (error) {
         next(error);

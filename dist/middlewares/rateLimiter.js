@@ -39,7 +39,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
             if (err)
                 throw err;
             const currentRequestTime = new Date();
-            console.log(record);
+            // console.log(record);
             //  if no record is found, create a new record for user and store to redis
             if (record == null) {
                 let requestLog = {
@@ -50,11 +50,11 @@ exports.customRedisRateLimiter = (req, res, next) => {
                 redisClient.set(req.ip, JSON.stringify(newRecord));
                 next();
             }
-            // if record is found, parse it's value and calculate # of requests users has made within WINDOW_LOG_INTERVAL_IN_HOURS
-            let data = JSON.parse(record);
+            // if record is found, parse it's value and calculate # of requests users have made within WINDOW_LOG_INTERVAL_IN_HOURS
+            let visitorRecord = JSON.parse(record);
             let windowRequestTime = new Date();
             let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
-            let requestsWithinWindow = data.filter(entry => {
+            let requestsWithinWindow = visitorRecord.filter(entry => {
                 return entry.request_timestamp > windowStartTimestamp;
             });
             console.log('requestsWithinWindow', requestsWithinWindow);
@@ -66,14 +66,14 @@ exports.customRedisRateLimiter = (req, res, next) => {
                 let httpResponse = {
                     status_code: 429,
                     message: `You have exceeded the ${rateLimit.window_max_request_count} requests in ${rateLimit.window_size_in_hours} hrs limit!`,
-                    data: {}
+                    data: visitorRecord
                 };
                 try {
                     res.status(httpResponse.status_code)
                         .send({
                         message: httpResponse.message,
                         status: res.status,
-                        data
+                        data: httpResponse.data
                     });
                 }
                 catch (e) {
@@ -82,21 +82,21 @@ exports.customRedisRateLimiter = (req, res, next) => {
             }
             else {
                 // if number of requests made is less than allowed maximum, log new entry
-                let lastRequestLog = data[data.length - 1];
+                let lastRequestLog = visitorRecord[visitorRecord.length - 1];
                 let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
                 //  if interval has not passed since last request log, increment counter
                 if (lastRequestLog.request_timestamp > potentialCurrentWindowIntervalStartTimeStamp) {
                     lastRequestLog.request_count++;
-                    data[data.length - 1] = lastRequestLog;
+                    visitorRecord[visitorRecord.length - 1] = lastRequestLog;
                 }
                 else {
                     //  if interval has passed, log new entry for current user and timestamp
-                    data.push({
-                        request_timestamp: currentRequestTime.getTime,
+                    visitorRecord.push({
+                        request_timestamp: currentRequestTime.getTime(),
                         request_count: 1
                     });
                 }
-                redisClient.set(req.ip, JSON.stringify(data));
+                redisClient.set(req.ip, JSON.stringify(visitorRecord));
                 next();
             }
         });
