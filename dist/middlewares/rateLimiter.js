@@ -39,7 +39,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
             if (err)
                 throw err;
             const currentRequestTime = new Date();
-            // console.log(record);
+            console.log(record);
             //  if no record is found, create a new record for user and store to redis
             if (record == null) {
                 let requestLog = {
@@ -61,6 +61,8 @@ exports.customRedisRateLimiter = (req, res, next) => {
             let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
                 return accumulator + entry.request_count;
             }, 0);
+            console.log(totalWindowRequestsCount);
+            console.log(typeof totalWindowRequestsCount);
             // return error if # of requests >= rateLimit.window_max_request_count
             if (totalWindowRequestsCount >= rateLimit.window_max_request_count) {
                 let httpResponse = {

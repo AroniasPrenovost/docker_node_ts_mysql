@@ -47,14 +47,14 @@ export const customRedisRateLimiter = (req, res, next) => {
             let visitorRecord: VisitorRecord = JSON.parse(record);
 
             let windowRequestTime = new Date(); 
-            let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
+            let windowStartTimestamp: number = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
 
             let requestsWithinWindow = visitorRecord.filter(entry => {
                 return entry.request_timestamp > windowStartTimestamp;
             });
             
             console.log('requestsWithinWindow', requestsWithinWindow);
-            let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
+            let totalWindowRequestsCount: number = requestsWithinWindow.reduce((accumulator, entry) => {
                 return accumulator + entry.request_count;
             }, 0);
 
@@ -82,8 +82,8 @@ export const customRedisRateLimiter = (req, res, next) => {
             } else {
                 
                 // if number of requests made is less than allowed maximum, log new entry
-                let lastRequestLog = visitorRecord[visitorRecord.length - 1];
-                let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
+                let lastRequestLog: RequestLog = visitorRecord[visitorRecord.length - 1];
+                let potentialCurrentWindowIntervalStartTimeStamp: number = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
 
                 //  if interval has not passed since last request log, increment counter
                 if (lastRequestLog.request_timestamp > potentialCurrentWindowIntervalStartTimeStamp) {
