@@ -3,4 +3,4 @@ export interface RequestLog {
   request_count : number
 }
 
-export interface VisitorRecord extends Array<RequestLog> { }
+export interface VisitorRecord extends Array<RequestLog> {}
