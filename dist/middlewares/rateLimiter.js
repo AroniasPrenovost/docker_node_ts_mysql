@@ -21,10 +21,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.customRedisRateLimiter = void 0;
 const redis = __importStar(require("redis"));
+// import { equestLog, VisitorRecord } from '../models/rateLimits/visitorRecord.interface';
+let rateLimit = {
+    window_size_in_hours: 24,
+    window_max_request_count: 100,
+    window_log_interval_in_hours: 1
+};
 const redisClient = redis.createClient();
-const WINDOW_SIZE_IN_HOURS = 24;
-const MAX_WINDOW_REQUEST_COUNT = 100;
-const WINDOW_LOG_INTERVAL_IN_HOURS = 1;
 exports.customRedisRateLimiter = (req, res, next) => {
     try {
         // check that redis client exists
@@ -52,7 +55,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
             // if record is found, parse it's value and calculate # of requests users has made within WINDOW_LOG_INTERVAL_IN_HOURS
             let data = JSON.parse(record);
             let windowRequestTime = new Date();
-            let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - WINDOW_SIZE_IN_HOURS);
+            let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - rateLimit.window_size_in_hours);
             let requestsWithinWindow = data.filter(entry => {
                 return entry.requestTimeStamp > windowStartTimestamp;
             });
@@ -60,11 +63,11 @@ exports.customRedisRateLimiter = (req, res, next) => {
             let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
                 return accumulator + entry.requestCount;
             }, 0);
-            // return error if # of requests >= MAX_WINDOW_REQUEST_COUNT
-            if (totalWindowRequestsCount >= MAX_WINDOW_REQUEST_COUNT) {
+            // return error if # of requests >= rateLimit.window_max_request_count
+            if (totalWindowRequestsCount >= rateLimit.window_max_request_count) {
                 let httpResponse = {
                     status_code: 429,
-                    message: `You have exceeded the ${MAX_WINDOW_REQUEST_COUNT} requests in ${WINDOW_SIZE_IN_HOURS} hrs limit!`,
+                    message: `You have exceeded the ${rateLimit.window_max_request_count} requests in ${rateLimit.window_size_in_hours} hrs limit!`,
                     data: {}
                 };
                 try {
@@ -82,7 +85,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
             else {
                 // if number of requests made is less than allowed maximum, log new entry
                 let lastRequestLog = data[data.length - 1];
-                let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - WINDOW_LOG_INTERVAL_IN_HOURS);
+                let potentialCurrentWindowIntervalStartTimeStamp = currentRequestTime.setHours(currentRequestTime.getHours() - rateLimit.window_log_interval_in_hours);
                 //  if interval has not passed since last request log, increment counter
                 if (lastRequestLog.requestTimeStamp > potentialCurrentWindowIntervalStartTimeStamp) {
                     lastRequestLog.requestCount++;

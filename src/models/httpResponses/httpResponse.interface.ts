@@ -1,5 +1,5 @@
 export interface HttpResponse {
-    status_code: number;
-    message: string;
-    data: object;
-  }
+  status_code: number;
+  message: string;
+  data: object;
+}
