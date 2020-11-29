@@ -38,6 +38,9 @@ export const customRedisRateLimiter = (req, res, next) => {
         // if record is found, parse it's value and calculate # of requests users has made within WINDOW_LOG_INTERVAL_IN_HOURS
         let data = JSON.parse(record);
 
+        console.log(data);
+        console.log(typeof data);
+
         let windowRequestTime = new Date(); 
         let windowStartTimestamp = windowRequestTime.setHours(windowRequestTime.getHours() - WINDOW_SIZE_IN_HOURS);
 
