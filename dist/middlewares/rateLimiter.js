@@ -28,6 +28,8 @@ let rateLimit = {
 };
 const redisClient = redis.createClient();
 exports.customRedisRateLimiter = (req, res, next) => {
+    // window changes every request. current timestamp - 24 hours ago === window
+    // discard request if request inside window && request_count > max requests
     try {
         if (!redisClient) {
             throw new Error('Redis client does not exist!');

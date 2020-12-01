@@ -26,6 +26,7 @@ require('dotenv').config();
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const bodyParser = __importStar(require("body-parser"));
+const testMode = (process.env.JEST_WORKER_ID !== undefined) ? true : false;
 const rateLimiter_1 = require("./middlewares/rateLimiter");
 const swaggerUi = require('swagger-ui-express');
 const swagger_json_1 = __importDefault(require("./swagger.json"));
@@ -38,23 +39,25 @@ if (process.env.NODE_ENV === 'development') {
 const users_router_1 = require("./routes/users.router");
 const registrations_router_1 = require("./routes/registrations.router");
 /**
- * Creates and configures an ExpressJS web server
+ * Create and configure ExpressJS web server
  */
 class App {
-    //Run configuration methods on the Express instance.
+    //Run configuration methods on the Express instance
     constructor() {
         this.express = express_1.default();
         this.middleware();
         this.routes();
     }
-    // Configure Express middleware.
+    // Configure Express middleware
     middleware() {
         this.express.use(morgan_1.default('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        this.express.use(rateLimiter_1.customRedisRateLimiter);
+        if (!testMode) {
+            this.express.use(rateLimiter_1.customRedisRateLimiter);
+        }
     }
-    // Configure API endpoints.
+    // Configure API endpoints
     routes() {
         // This function will change when we start to add more API endpoints 
         let router = express_1.default.Router();
