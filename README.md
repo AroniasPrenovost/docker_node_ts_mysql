@@ -112,7 +112,7 @@ Build a real world "production" REST API:
 
 * [ ] Integration tested, recommend docker-compose.
 
-* [ ] OpenAPI/Swagger (or similar for gRPC) documented.
+* [x] OpenAPI/Swagger (or similar for gRPC) documented.
 
 * [ ] dep vendored, but using the standard library often, instead of piling on dependencies.
 
@@ -124,7 +124,7 @@ Build a real world "production" REST API:
 
 * [ ] "why" comments, not "what" or "how" which should be clear through func/variable names and godoc comments.
 
-* [ ] Use of Context to limit request time.
+* [x] Use of Context to limit request time.
 
 * [ ] Leveled JSON logging, logrus or similar.
 
