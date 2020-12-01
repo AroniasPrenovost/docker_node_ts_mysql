@@ -89,9 +89,7 @@ exports.customRedisRateLimiter = (req, res, next) => {
                         lastRequestLog.request_count++;
                         visitorRecord[visitorRecord.length - 1] = lastRequestLog;
                     }
-                    if (visitorRecord[0].request_count % 10 === 0) {
-                        console.log('visitorRecord', visitorRecord);
-                    }
+                    console.log('visitorRecord', visitorRecord);
                     redisClient.set(req.ip, JSON.stringify(visitorRecord));
                     next();
                 }
