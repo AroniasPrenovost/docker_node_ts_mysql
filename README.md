@@ -10,8 +10,8 @@
 6. Tests - `npx test`
 7. Run the development server - `npm start`
 
-```
-$ npm run build ; gulp assets ; npx jest ; npm start
+```sh
+npm run build ; gulp assets ; npx jest ; npm start
 ```
 
 ### Run Redis server in separate window 
@@ -20,12 +20,12 @@ $ redis-server
 ```
 
 ### Unit tests with Jest
-```
-$ npx jest 
+```sh
+npx jest 
 ```
 or 
-```
-$ npm run test 
+```sh
+npm run test 
 ```
 
 ### SwaggerUI docs 
@@ -45,60 +45,60 @@ to do:
 ### registrations
 
 * `GET /registrations` returns list of registrations as JSON
-```
-$ curl localhost:8080/api/v1/registrations
+```sh
+curl localhost:8080/api/v1/registrations
 ```
 
 * `GET /registrations/:id` returns list of registrations as JSON
-```
-$ curl localhost:8080/api/v1/registrations
+```sh
+curl localhost:8080/api/v1/registrations
 ```
 
 * `POST /registrations` adds new registration record 
-```
-$ curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "unconfirmed", "event_id": 12, "registration_meta": { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "email_address": "testTestington@gmail.com", "contact_me": true}}' -H "Content-Type: application/json"
+```sh
+curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "unconfirmed", "event_id": 12, "registration_meta": { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "email_address": "testTestington@gmail.com", "contact_me": true}}' -H "Content-Type: application/json"
 ```
 
 * `PUT /registrations` update registration record (requires ID or email address)
+```sh
+curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: application/json"
 ```
-$ curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: application/json"
-```
-```
-$ curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 7, "registration_state": "confirmed"}' -H "Content-Type: application/json"
+```sh
+curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 7, "registration_state": "confirmed"}' -H "Content-Type: application/json"
 ```
 
 * `DELETE /registrations` deletes all registration records 
-```
-$ curl localhost:8080/api/v1/registrations -X DELETE
+```sh
+curl localhost:8080/api/v1/registrations -X DELETE
 ```
 
 ### registration
 
 * `GET /registration` gets registration by id  
-```
-$ curl localhost:8080/api/v1/registration/{id}
+```sh
+curl localhost:8080/api/v1/registration/{id}
 ```
 
 ### users
 
 * `GET /users` returns list of users as JSON
-```
-$ curl localhost:8080/api/v1/users
+```sh
+curl localhost:8080/api/v1/users
 ```
 
 * `GET /users/:id` gets user by Id 
-```
-$ curl localhost:8080/api/v1/users
+```sh
+curl localhost:8080/api/v1/users
 ```
 
 * `POST /users` adds new users record 
-```
-$ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "password": "test"}' -H "Content-Type: application/json"
+```sh
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "password": "test"}' -H "Content-Type: application/json"
 ```
 
 * `PUT /users` update user record - requires user's id
-```
-$ curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
+```sh
+curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
 ```
 
 ## Long-Term Goals 
