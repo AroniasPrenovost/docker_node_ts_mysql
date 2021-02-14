@@ -56,13 +56,13 @@ CREATE TABLE registrations (
 );
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
-VALUES (1, 1, 1, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
+VALUES (1, 1, 1, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"tester@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
-VALUES (2, 1, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
+VALUES (2, 1, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"tester@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
-VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
+VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"tester@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 ```
 
 ##############
