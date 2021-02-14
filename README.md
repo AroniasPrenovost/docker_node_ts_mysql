@@ -41,7 +41,7 @@ npm run test
 CREATE DATABASE test_data_table;
 ```
 
-### Create USERS table
+### Create `USERS` table
 
 ```sh
 CREATE TABLE users (
@@ -55,7 +55,7 @@ CREATE TABLE users (
   anonymized_at datetime NULL DEFAULT NULL
 );
 
---insert test users 
+-- insert test users 
 INSERT INTO users (id, email_address, account_password, first_name, last_name, created_at, updated_at, anonymized_at)
 VALUES (1, 'test@aol.com', 'sdljfnf97976', 'John', 'Doe', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 
@@ -77,7 +77,7 @@ CREATE TABLE registrations (
   anonymized_at datetime NULL DEFAULT NULL
 );
 
---insert test registrations 
+-- insert test registrations 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
 VALUES (1, 1, 1, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"test@aol.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 
