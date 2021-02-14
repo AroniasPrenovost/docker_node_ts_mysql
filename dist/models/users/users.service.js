@@ -78,10 +78,10 @@ exports.create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
     let postQuery = 'VALUES(';
     let email = newUser.email_address;
     // generate temp password for newUser if not set 
-    let pw = newUser.password;
+    let pw = newUser.account_password;
     if (pw == null) {
         pw = 'placeholder';
-        newUser.password = pw;
+        newUser.account_password = pw;
     }
     // add created_at timestamp to newUser
     newUser.created_at = Utils.datetimeTimestamp();

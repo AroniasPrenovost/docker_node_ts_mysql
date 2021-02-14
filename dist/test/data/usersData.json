@@ -2,7 +2,7 @@
     {
       "id": 1,
       "email_address": "aron@gmail.com",
-      "password": "testpass123",
+      "account_password": "testpass123",
       "created_at": "2012-11-16 00:00:00",
       "updated_at": "2012-11-16 00:00:00",
       "anonymized_at": null
@@ -10,7 +10,7 @@
     {
       "id": 2,
       "email_address": "test@yahoo.com",
-      "password": "1hunnid",
+      "account_password": "1hunnid",
       "created_at": "2012-11-16 00:00:00",
       "updated_at": "2012-11-16 00:00:00",
       "anonymized_at": null
@@ -18,7 +18,7 @@
     {
       "id": 3,
       "email_address": "buebird@outlook.com",
-      "password": "testpass123",
+      "account_password": "testpass123",
       "created_at": "2012-11-16 00:00:00",
       "updated_at": "2012-11-16 00:00:00",
       "anonymized_at": null
@@ -26,7 +26,7 @@
     {
       "id": 4,
       "email_address": "l3ks9sydo30923pifj",
-      "password": "*********",
+      "account_password": "*********",
       "created_at": "2012-11-16 00:00:00",
       "updated_at": "2012-11-16 00:00:00",
       "anonymized_at": "2012-11-16 00:00:00"
@@ -34,7 +34,7 @@
     {
       "id": 5,
       "email_address": "ap123@aol.com",
-      "password": "testpass123",
+      "account_password": "testpass123",
       "created_at": "2012-11-16 00:00:00",
       "updated_at": "2012-11-16 00:00:00",
       "anonymized_at": null

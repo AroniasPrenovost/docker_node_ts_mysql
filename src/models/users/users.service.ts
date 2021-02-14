@@ -91,10 +91,10 @@ export const create = async (newUser: User): Promise<HttpResponse> => {
   let email: string = newUser.email_address; 
 
   // generate temp password for newUser if not set 
-  let pw: string = newUser.password; 
+  let pw: string = newUser.account_password; 
   if (pw == null) {
     pw = 'placeholder';
-    newUser.password = pw; 
+    newUser.account_password = pw; 
   }  
       
   // add created_at timestamp to newUser
