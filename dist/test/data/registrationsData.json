@@ -1,0 +1,53 @@
+[
+    {
+      "id": 1,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 1, 
+      "event_id": 4, 
+      "created_at": "2012-11-16 00:00:00",
+      "updated_at": "2012-11-16 00:00:00",
+      "anonymized_at": "2012-11-16 00:00:00"
+    },
+    {
+      "id": 2,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 2, 
+      "event_id": 4, 
+      "created_at": "2012-11-16 00:00:00",
+      "updated_at": "2012-11-16 00:00:00",
+      "anonymized_at": "2012-11-16 00:00:00"
+    },
+    {
+      "id": 3,
+      "registration_state": "unconfirmed",
+      "registration_meta": "{}",
+      "user_id": 3, 
+      "event_id": 4, 
+      "created_at": "2012-11-16 00:00:00",
+      "updated_at": "2012-11-16 00:00:00",
+      "anonymized_at": "2012-11-16 00:00:00"
+    },
+    {
+      "id": 4,
+      "registration_state": "confirmed",
+      "registration_meta": "{}",
+      "user_id": 4, 
+      "event_id": 4, 
+      "created_at": "2012-11-16 00:00:00",
+      "updated_at": "2012-11-16 00:00:00",
+      "anonymized_at": "2012-11-16 00:00:00"
+    },
+    {
+      "id": 5,
+      "registration_state": "unconfirmed",
+      "registration_meta": "{}",
+      "user_id": 5, 
+      "event_id": 4, 
+      "created_at": "2012-11-16 00:00:00",
+      "updated_at": "2012-11-16 00:00:00",
+      "anonymized_at": "2012-11-16 00:00:00"
+    }
+  ]
+  

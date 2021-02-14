@@ -45,14 +45,15 @@ CREATE DATABASE test_data_table ;
 
 ```sh
 CREATE TABLE registrations (
-  id int(11) NOT NULL,				    	
+  id int(11) NOT NULL AUTO_INCREMENT,				    	
   user_id int(11) NOT NULL,
   event_id int(11) NOT NULL,
   registration_state enum('standard','unverified','anonymized') COLLATE utf8mb4_unicode_ci DEFAULT 'unverified',
   registration_meta json DEFAULT NULL,
   created_at datetime NOT NULL,
-  updated_at datetime NOT NULL,
-  anonymized_at datetime NULL DEFAULT NULL
+  updated_at datetime NULL DEFAULT NULL,
+  anonymized_at datetime NULL DEFAULT NULL,
+  primary key (id)
 );
 
 -- insert test registrations 
@@ -70,14 +71,15 @@ VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_numb
 
 ```sh
 CREATE TABLE users (
-  id int(11) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   email_address varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   account_password varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   first_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   last_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   created_at datetime NOT NULL,
-  updated_at datetime NOT NULL,
-  anonymized_at datetime NULL DEFAULT NULL
+  updated_at datetime NULL DEFAULT NULL,
+  anonymized_at datetime NULL DEFAULT NULL,
+  primary key (id)
 );
 
 -- insert test users 
@@ -131,7 +133,7 @@ curl localhost:8080/api/v1/users/1
 
 `POST /users` adds new user record 
 ```sh
-curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "password": "test"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "test"}' -H "Content-Type: application/json"
 ```
 
 `PUT /users` update user record - requires user's id
