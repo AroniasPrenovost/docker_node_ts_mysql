@@ -97,7 +97,7 @@ VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe', '2018-08-20 00:14:14',
 curl localhost:8080/api/v1/registrations
 ```
 
-`GET /registrations/:id` returns list by ID
+`GET /registrations/:id` returns registration by ID
 ```sh
 curl localhost:8080/api/v1/registrations/1
 ```
@@ -117,13 +117,6 @@ curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 1, "registration_stat
 curl localhost:8080/api/v1/registrations -X DELETE
 ```
 
-### registration
-
-`GET /registration` gets registration by id  
-```sh
-curl localhost:8080/api/v1/registration/{id}
-```
-
 ### users
 
 `GET /users` returns list as JSON
@@ -133,7 +126,7 @@ curl localhost:8080/api/v1/users
 
 `GET /users/:id` get user by Id 
 ```sh
-curl localhost:8080/api/v1/users
+curl localhost:8080/api/v1/users/1
 ```
 
 `POST /users` adds new user record 
