@@ -69,7 +69,7 @@ describe('POST api/v1/registrations', () => {
     regMeta.email_address = `chaitest-${timestamp.replace(/ +/g, '-')}@testRegistrations.com`;
 
     let testJSON = {
-        'registration_state': 'confirmed',
+        'registration_state': 'unverified',
         'event_id': 2,
         'registration_meta': JSON.stringify(regMeta),
         'created_at': timestamp
@@ -103,7 +103,7 @@ describe('PUT api/v1/registrations', () => {
     let timestamp = Utils.datetimeTimestamp();
     let testJSON = {
         'id': 1,
-        'registration_state': 'unconfirmed',
+        'registration_state': 'unverified',
         'updated_at': timestamp
     };
     test('responds with JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {

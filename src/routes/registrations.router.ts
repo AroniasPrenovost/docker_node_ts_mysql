@@ -62,6 +62,8 @@ RegistrationsRouter.post('/', async (req: Request, res: Response) => {
     const registration: Registration = req.body;
     const httpResponse: HttpResponse = await RegistrationsService.create(registration);
     let data: Object = JSON.parse(JSON.stringify(httpResponse.data));
+
+    console.log(data);
     
     res.status(httpResponse.status_code)
     .send({

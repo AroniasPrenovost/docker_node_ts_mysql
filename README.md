@@ -92,27 +92,24 @@ VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe', '2018-08-20 00:14:14',
 
 ### registrations
 
-`GET /registrations` returns list as JSON
+`GET /registrations` returns list as JSON  
 ```sh
 curl localhost:8080/api/v1/registrations
 ```
 
-`GET /registrations/:id` returns list as JSON
+`GET /registrations/:id` returns list by ID
 ```sh
-curl localhost:8080/api/v1/registrations
+curl localhost:8080/api/v1/registrations/1
 ```
 
 `POST /registrations` adds new registration 
 ```sh
-curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "unconfirmed", "event_id": 12, "registration_meta": { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "email_address": "testTestington@gmail.com", "contact_me": true}}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "standard", "event_id": 12, "registration_meta": { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "email_address": "testTestington@gmail.com", "contact_me": true}}' -H "Content-Type: application/json"
 ```
 
 `PUT /registrations` update registration (requires ID or email address)
 ```sh
-curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: application/json"
-```
-```sh
-curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 7, "registration_state": "confirmed"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 1, "registration_state": "standard"}' -H "Content-Type: application/json"
 ```
 
 `DELETE /registrations` deletes all registrations

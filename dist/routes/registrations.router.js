@@ -80,6 +80,7 @@ exports.RegistrationsRouter.post('/', (req, res) => __awaiter(void 0, void 0, vo
         const registration = req.body;
         const httpResponse = yield RegistrationsService.create(registration);
         let data = JSON.parse(JSON.stringify(httpResponse.data));
+        console.log(data);
         res.status(httpResponse.status_code)
             .send({
             message: httpResponse.message,
