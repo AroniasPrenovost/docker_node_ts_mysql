@@ -45,14 +45,14 @@ npm run test
 
 ```sh
 CREATE TABLE registrations (
-    id int(11) NOT NULL,				    	
-    user_id int(11) NOT NULL,
-    event_id int(11) NOT NULL,
-    registration_state enum('standard','unverified','anonymized') COLLATE      utf8mb4_unicode_ci DEFAULT 'unverified',
-  	registration_meta json DEFAULT NULL,
-    created_at datetime NOT NULL,
-	updated_at datetime NOT NULL,
-  	anonymized_at datetime NULL DEFAULT NULL
+  id int(11) NOT NULL,				    	
+  user_id int(11) NOT NULL,
+  event_id int(11) NOT NULL,
+  registration_state enum('standard','unverified','anonymized') COLLATE utf8mb4_unicode_ci DEFAULT 'unverified',
+  registration_meta json DEFAULT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  anonymized_at datetime NULL DEFAULT NULL
 );
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
@@ -64,6 +64,7 @@ VALUES (2, 1, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_numb
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
 VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
 ```
+
 ##############
 #
 # REGISTRATIONS
