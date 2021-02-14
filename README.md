@@ -41,14 +41,14 @@ npm run test
 
 ```sh
 CREATE TABLE registrations (
-    id int(11) NOT NULL,				    	
-    user_id int(11) NOT NULL,
-    event_id int(11) NOT NULL,
-    registration_state enum('standard','unverified','anonymized') COLLATE      utf8mb4_unicode_ci DEFAULT 'unverified',
-  	registration_meta json DEFAULT NULL,
-    created_at datetime NOT NULL,
-	updated_at datetime NOT NULL,
-  	anonymized_at datetime NULL DEFAULT NULL
+  id int(11) NOT NULL,				    	
+  user_id int(11) NOT NULL,
+  event_id int(11) NOT NULL,
+  registration_state enum('standard','unverified','anonymized') COLLATE utf8mb4_unicode_ci DEFAULT 'unverified',
+  registration_meta json DEFAULT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  anonymized_at datetime NULL DEFAULT NULL
 );
 
 --insert test registrations 
@@ -88,22 +88,22 @@ VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe', '2018-08-20 00:14:14',
 
 ### registrations
 
-* `GET /registrations` returns list as JSON
+`GET /registrations` returns list as JSON
 ```sh
 curl localhost:8080/api/v1/registrations
 ```
 
-* `GET /registrations/:id` returns list as JSON
+`GET /registrations/:id` returns list as JSON
 ```sh
 curl localhost:8080/api/v1/registrations
 ```
 
-* `POST /registrations` adds new registration 
+`POST /registrations` adds new registration 
 ```sh
 curl localhost:8080/api/v1/registrations -X POST -d '{"registration_state": "unconfirmed", "event_id": 12, "registration_meta": { "first_name": "Test", "last_name": "Testington", "phone_number": "123456789", "email_address": "testTestington@gmail.com", "contact_me": true}}' -H "Content-Type: application/json"
 ```
 
-* `PUT /registrations` update registration (requires ID or email address)
+`PUT /registrations` update registration (requires ID or email address)
 ```sh
 curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: application/json"
 ```
@@ -111,36 +111,36 @@ curl localhost:8080/api/v1/registrations -X PUT -d '{}' -H "Content-Type: applic
 curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 7, "registration_state": "confirmed"}' -H "Content-Type: application/json"
 ```
 
-* `DELETE /registrations` deletes all registrations
+`DELETE /registrations` deletes all registrations
 ```sh
 curl localhost:8080/api/v1/registrations -X DELETE
 ```
 
 ### registration
 
-* `GET /registration` gets registration by id  
+`GET /registration` gets registration by id  
 ```sh
 curl localhost:8080/api/v1/registration/{id}
 ```
 
 ### users
 
-* `GET /users` returns list as JSON
+`GET /users` returns list as JSON
 ```sh
 curl localhost:8080/api/v1/users
 ```
 
-* `GET /users/:id` get user by Id 
+`GET /users/:id` get user by Id 
 ```sh
 curl localhost:8080/api/v1/users
 ```
 
-* `POST /users` adds new user record 
+`POST /users` adds new user record 
 ```sh
 curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "password": "test"}' -H "Content-Type: application/json"
 ```
 
-* `PUT /users` update user record - requires user's id
+`PUT /users` update user record - requires user's id
 ```sh
 curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
 ```
