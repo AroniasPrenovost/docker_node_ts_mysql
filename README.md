@@ -35,9 +35,35 @@ npm run test
 
 ### Data storage - MySQL
 
-## Create tables 
+## Create DB
 
-### REGISTRATIONS
+```sh
+CREATE DATABASE test_data_table;
+```
+
+### Create USERS table
+
+```sh
+CREATE TABLE users (
+  id int(11) NOT NULL,
+  email_address varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  account_password varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  first_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  last_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  anonymized_at datetime NULL DEFAULT NULL
+);
+
+--insert test users 
+INSERT INTO users (id, email_address, account_password, first_name, last_name, created_at, updated_at, anonymized_at)
+VALUES (1, 'test@aol.com', 'sdljfnf97976', 'John', 'Doe', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
+
+INSERT INTO users (id, email_address, account_password, first_name, last_name, created_at, updated_at, anonymized_at)
+VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe', '2018-08-20 00:14:14', '2019-09-01 19:15:57', NULL);
+```
+
+### Create REGISTRATIONS table
 
 ```sh
 CREATE TABLE registrations (
@@ -60,28 +86,6 @@ VALUES (2, 1, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_numb
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta, created_at, updated_at, anonymized_at)
 VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
-```
-
-### USERS
-
-```sh
-CREATE TABLE users (
-  id int(11) NOT NULL,
-  email_address varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  account_password varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  first_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  last_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  created_at datetime NOT NULL,
-  updated_at datetime NOT NULL,
-  anonymized_at datetime NULL DEFAULT NULL
-);
-
---insert test users 
-INSERT INTO users (id, email_address, account_password, first_name, last_name, created_at, updated_at, anonymized_at)
-VALUES (1, 'test@aol.com', 'sdljfnf97976', 'John', 'Doe', '2020-08-20 00:14:14', '2020-09-01 19:15:57', NULL);
-
-INSERT INTO users (id, email_address, account_password, first_name, last_name, created_at, updated_at, anonymized_at)
-VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe', '2018-08-20 00:14:14', '2019-09-01 19:15:57', NULL);
 ```
 
 ## API endpoints

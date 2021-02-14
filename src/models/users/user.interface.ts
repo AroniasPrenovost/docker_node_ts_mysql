@@ -1,7 +1,7 @@
 export interface User {
   id: number;             // generated, foreign referenced in 'users' table 
   email_address: string,  
-  password: string,       // (temporarily) generated
+  account_password: string,       // (temporarily) generated
   first_name: string,     // taken from registration
   last_name: string,      // taken from registration
   created_at: string,     // generated 
