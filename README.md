@@ -41,7 +41,7 @@ npm run test
 CREATE DATABASE test_data_table ;
 ```
 
-### Create REGISTRATIONS table
+## Create REGISTRATIONS table
 
 ```sh
 CREATE TABLE registrations (
@@ -67,7 +67,7 @@ INSERT INTO registrations (id, event_id, user_id, registration_state, registrati
 VALUES (3, 3, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"anon@gmail.com","contact_me":false}');
 ```
 
-### Create `USERS` table
+## Create `USERS` table
 
 ```sh
 CREATE TABLE users (
@@ -92,7 +92,7 @@ VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe');
 
 ## API endpoints
 
-### registrations
+## registrations
 
 `GET /registrations` returns list as JSON  
 ```sh
@@ -119,7 +119,7 @@ curl localhost:8080/api/v1/registrations -X PUT -d '{"id": 1, "registration_stat
 curl localhost:8080/api/v1/registrations -X DELETE
 ```
 
-### users
+## users
 
 `GET /users` returns list as JSON
 ```sh
@@ -141,7 +141,8 @@ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@g
 curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
 ```
 
-## Long-Term Goals 
+### Long-Term Goals 
+
 Build a real world "production" REST API: 
 
 * [ ] Scalable, must be able to run more than one instance.
