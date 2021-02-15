@@ -98,7 +98,7 @@ exports.create = (newRegistration) => __awaiter(void 0, void 0, void 0, function
             first_name: newRegistration.registration_meta.first_name,
             last_name: newRegistration.registration_meta.last_name,
             email_address: newRegistration.registration_meta.email_address,
-            password: password,
+            account_password: password,
             created_at: Utils.datetimeTimestamp()
         };
         // build users INSERT query

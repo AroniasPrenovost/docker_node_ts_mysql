@@ -133,12 +133,12 @@ curl localhost:8080/api/v1/users/1
 
 `POST /users` adds new user record 
 ```sh
-curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "test"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "test"}' -H "Content-Type: application/json"
 ```
 
 `PUT /users` update user record - requires user's id
 ```sh
-curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestingtongmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X PUT -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Johnson", "id": 1}' -H "Content-Type: application/json"
 ```
 
 ## Long-Term Goals 
