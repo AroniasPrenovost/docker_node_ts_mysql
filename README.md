@@ -149,7 +149,7 @@ Build a real world "production" REST API:
 
 * [ ] Dockerized, runnable on minikube.
 
-* [ ] Unit tested, must be able to run "go test ./..." directly from clone.
+* [x] Unit tested, must be able to run "go test ./..." directly from clone.
 
 * [ ] Integration tested, recommend docker-compose.
 
@@ -163,8 +163,6 @@ Build a real world "production" REST API:
 
 * [ ] Flag & ENV config, API keys, ports, dev mode, etc.
 
-* [ ] "why" comments, not "what" or "how" which should be clear through func/variable names and godoc comments.
-
 * [x] Use of Context to limit request time.
 
 * [ ] Leveled JSON logging, logrus or similar.
@@ -177,6 +175,6 @@ Build a real world "production" REST API:
 
 * [ ] Well documented README.md with separate sections for API user and service developer audiences. Maybe even include graphviz or mermaidJS UML diagrams.
 
-* [ ] Clean git history with structured commits and useful messages. No merge master commits.
+* [x] Clean git history with structured commits and useful messages. No merge master commits.
 
 * [ ] Passing go fmt, go lint, or better, go-metalinter in the CI.
