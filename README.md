@@ -3,18 +3,19 @@
 ### Project Setup 
 
 1. Fork/Clone
-2. create .env w/ credentials - `cp .env-sample .env`
-3. Install dependencies - `npm install`
-4. Compile - `npm run build`
-5. Compile assets - `gulp assets`
-6. Tests - `npx test`
-7. Run the development server - `npm start`
+2. Create database tables (see below)
+3. create .env w/ credentials - `cp .env-sample .env`
+4. Install dependencies - `npm install`
+5. Compile - `npm run build`
+6. Compile assets - `gulp assets`
+7. Tests - `npx test`
+8. Run the development server - `npm start`
+9. Run Redis server in separate window - `redis-server`
 
 ```sh
 npm run build ; gulp assets ; npx jest ; npm start
 ```
 
-### Run Redis server in separate window 
 ```sh 
  redis-server
 ```

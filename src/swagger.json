@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "RESTful API Example",
-        "description": "A fun learning project TypeScript & Node.js",
+        "title": "Eventually",
+        "description": "A RESTful API using TypeScript & Node.js",
         "license": {
             "name": "MIT",
             "url": "https://github.com/aroniasprenovost/"
