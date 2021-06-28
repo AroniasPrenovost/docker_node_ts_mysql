@@ -3,7 +3,10 @@
  */
 
 import e = require('express');
+
+// auth 
 import bcrypt = require('bcrypt');
+import jwt = require('jsonwebtoken');
 
 import { User } from './user.interface';
 import { UserLogin } from './userLogin.interface';
@@ -177,10 +180,23 @@ export const login = async (userLogin: UserLogin): Promise<HttpResponse> => {
   if (findByEmailResponse.status_code === 200) {
     let hashedPassword: string = findByEmailResponse['data']['account_password'];
     const hash = await bcrypt.compare(password, hashedPassword); 
+
     if (hash) {
+      const token = jwt.sign({
+          email: email,
+          id: findByEmailResponse['data']['id']
+        }, 
+        process.env.JWT_KEY, {
+          expiresIn: '1h'
+        }
+      ); 
+
       httpResponse.status_code = 200;
       httpResponse.message = 'Authorization successful.';
-      httpResponse.data = {'email': email}; 
+      httpResponse.data = {
+        'email': email,
+        'token': token
+      }; 
       return httpResponse;
     } else {
       httpResponse.status_code = 401;

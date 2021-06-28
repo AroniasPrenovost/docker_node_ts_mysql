@@ -114,7 +114,7 @@ describe('POST api/v1/users/login', () => {
     let timestamp = Utils.datetimeTimestamp();
     let testJSON = {
         'email_address': `hj@gmail.com`,
-        'account_password': 'heesbyjeeby'
+        'account_password': 'heebyjeeby'
     };
     test('responds with single JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
         yield request(app_1.default)

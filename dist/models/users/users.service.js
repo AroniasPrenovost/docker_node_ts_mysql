@@ -13,7 +13,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.remove = exports.update = exports.login = exports.create = exports.findByEmail = exports.findById = exports.getAll = void 0;
+// auth 
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 var Utils = require('../../utils/index');
 /**
  * In-Memory Store
@@ -150,9 +152,18 @@ exports.login = (userLogin) => __awaiter(void 0, void 0, void 0, function* () {
         let hashedPassword = findByEmailResponse['data']['account_password'];
         const hash = yield bcrypt.compare(password, hashedPassword);
         if (hash) {
+            const token = jwt.sign({
+                email: email,
+                id: findByEmailResponse['data']['id']
+            }, process.env.JWT_KEY, {
+                expiresIn: '1h'
+            });
             httpResponse.status_code = 200;
             httpResponse.message = 'Authorization successful.';
-            httpResponse.data = { 'email': email };
+            httpResponse.data = {
+                'email': email,
+                'token': token
+            };
             return httpResponse;
         }
         else {
