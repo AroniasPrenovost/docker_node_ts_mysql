@@ -34,16 +34,46 @@ describe('GET api/v1/users', () => {
 });
 
 /**
- * GET/:id
+ * GET/id/:id
  */
-describe('GET api/v1/users/:id', () => {
+describe('GET api/v1/users/id/:id', () => {
 
     test('responds with single JSON user object', async (done) => {
         
-        const response = await request(app).get('/api/v1/users/1');
+        const response = await request(app).get('/api/v1/users/id/1');
         
         expect(response.status).toBe(200);
         expect(response.body.message).toEqual('Successfully retrieved user by id.');
+        expect(response.body instanceof Object).toBe(true);
+
+        expect(response.body.data).toMatchObject({
+            id: expect.any(Number),
+            email_address: expect.any(String),
+            account_password: expect.any(String),
+            first_name: expect.any(String),
+            last_name: expect.any(String),
+            created_at: expect.any(String),
+            updated_at: expect.any(String),
+            // anonymized_at: expect.any.toEqual(null)  
+        });
+
+        expect(Utils.validateEmailAddress(response.body.data.email_address)).toBe(true);
+        
+        done(); 
+    });
+});
+
+/**
+ * GET/email/:email
+ */
+ describe('GET api/v1/users/email/:email', () => {
+
+    test('responds with single JSON user object', async (done) => {
+        
+        const response = await request(app).get('/api/v1/users/email/test@aol.com');
+        
+        expect(response.status).toBe(200);
+        expect(response.body.message).toEqual('Successfully retrieved user by email.');
         expect(response.body instanceof Object).toBe(true);
 
         expect(response.body.data).toMatchObject({
@@ -87,6 +117,32 @@ describe('POST api/v1/users', () => {
                 expect(response.status).toBe(201);
                 expect(response.body instanceof Object).toBe(true);
                 expect(response.body.message).toEqual('Successfully added new user.');
+            });
+        
+        done(); 
+    });
+});
+
+/**
+ * POST login
+ */
+describe('POST api/v1/users/login', () => {
+
+    let timestamp = Utils.datetimeTimestamp(); 
+    let testJSON: Object = {
+        'email_address': `hj@gmail.com`, 
+        'account_password': 'heebyjeeby'
+    }; 
+
+    test('responds with single JSON object', async (done) => {
+        await request(app)
+            .post('/api/v1/users/login')
+            .send(testJSON)
+            .expect(200)
+            .then(async (response) => {
+                expect(response.status).toBe(200);
+                expect(response.body instanceof Object).toBe(true);
+                expect(response.body.message).toEqual('Authorization successful.');
             });
         
         done(); 

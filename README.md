@@ -59,7 +59,7 @@ CREATE TABLE registrations (
 
 -- insert test registrations 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta)
-VALUES (1, 1, 1, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"test@aol.com","contact_me":false}');
+VALUES (1, 1, 1, 'standard', '{"first_name":"Test","last_name":"Doe","phone_number":"2065428765","email_address":"test@aol.com","contact_me":false}');
 
 INSERT INTO registrations (id, event_id, user_id, registration_state, registration_meta)
 VALUES (2, 1, 2, 'standard', '{"first_name":"John","last_name":"Doe","phone_number":"2065428765","email_address":"test@msn.com","contact_me":false}');
@@ -127,14 +127,24 @@ curl localhost:8080/api/v1/registrations -X DELETE
 curl localhost:8080/api/v1/users
 ```
 
-`GET /users/:id` get user by Id 
+`GET /users/id/:id` get user by Id 
 ```sh
-curl localhost:8080/api/v1/users/1
+curl localhost:8080/api/v1/users/id/1
+```
+
+`GET /users/email/:id` get user by email
+```sh
+curl localhost:8080/api/v1/users/email/test_email_address@gmail.com
 ```
 
 `POST /users` adds new user record 
 ```sh
-curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "test"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "testeroas123"}' -H "Content-Type: application/json"
+```
+
+`POST /users/login` logs in user
+```sh
+curl localhost:8080/api/v1/users/login -X POST -d '{"email_address": "testTestington@gmail.com", "account_password": "testeroas123"}' -H "Content-Type: application/json"
 ```
 
 `PUT /users` update user record - requires user's id

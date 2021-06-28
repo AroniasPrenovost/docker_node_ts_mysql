@@ -38,13 +38,35 @@ describe('GET api/v1/users', () => {
     }));
 });
 /**
- * GET/:id
+ * GET/id/:id
  */
-describe('GET api/v1/users/:id', () => {
+describe('GET api/v1/users/id/:id', () => {
     test('responds with single JSON user object', (done) => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request(app_1.default).get('/api/v1/users/1');
+        const response = yield request(app_1.default).get('/api/v1/users/id/1');
         expect(response.status).toBe(200);
         expect(response.body.message).toEqual('Successfully retrieved user by id.');
+        expect(response.body instanceof Object).toBe(true);
+        expect(response.body.data).toMatchObject({
+            id: expect.any(Number),
+            email_address: expect.any(String),
+            account_password: expect.any(String),
+            first_name: expect.any(String),
+            last_name: expect.any(String),
+            created_at: expect.any(String),
+            updated_at: expect.any(String),
+        });
+        expect(Utils.validateEmailAddress(response.body.data.email_address)).toBe(true);
+        done();
+    }));
+});
+/**
+ * GET/email/:email
+ */
+describe('GET api/v1/users/email/:email', () => {
+    test('responds with single JSON user object', (done) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request(app_1.default).get('/api/v1/users/email/test@aol.com');
+        expect(response.status).toBe(200);
+        expect(response.body.message).toEqual('Successfully retrieved user by email.');
         expect(response.body instanceof Object).toBe(true);
         expect(response.body.data).toMatchObject({
             id: expect.any(Number),
@@ -81,6 +103,28 @@ describe('POST api/v1/users', () => {
             expect(response.status).toBe(201);
             expect(response.body instanceof Object).toBe(true);
             expect(response.body.message).toEqual('Successfully added new user.');
+        }));
+        done();
+    }));
+});
+/**
+ * POST login
+ */
+describe('POST api/v1/users/login', () => {
+    let timestamp = Utils.datetimeTimestamp();
+    let testJSON = {
+        'email_address': `hj@gmail.com`,
+        'account_password': 'heesbyjeeby'
+    };
+    test('responds with single JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
+        yield request(app_1.default)
+            .post('/api/v1/users/login')
+            .send(testJSON)
+            .expect(200)
+            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+            expect(response.status).toBe(200);
+            expect(response.body instanceof Object).toBe(true);
+            expect(response.body.message).toEqual('Authorization successful.');
         }));
         done();
     }));

@@ -10,9 +10,7 @@ import { customRedisRateLimiter } from './middlewares/rateLimiter';
 
 const swaggerUi = require('swagger-ui-express');
 import swaggerDocument from './swagger.json';
-if (process.env.NODE_ENV === 'development') {
-  swaggerDocument.host = 'localhost:' + process.env.PORT
-}
+swaggerDocument.host = `${process.env.NODE_ENV}:${process.env.PORT}`;
 
 /**
  * Import routes

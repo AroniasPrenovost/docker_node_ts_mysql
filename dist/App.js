@@ -30,9 +30,7 @@ const testMode = (process.env.JEST_WORKER_ID !== undefined) ? true : false;
 const rateLimiter_1 = require("./middlewares/rateLimiter");
 const swaggerUi = require('swagger-ui-express');
 const swagger_json_1 = __importDefault(require("./swagger.json"));
-if (process.env.NODE_ENV === 'development') {
-    swagger_json_1.default.host = 'localhost:' + process.env.PORT;
-}
+swagger_json_1.default.host = `${process.env.NODE_ENV}:${process.env.PORT}`;
 /**
  * Import routes
  */

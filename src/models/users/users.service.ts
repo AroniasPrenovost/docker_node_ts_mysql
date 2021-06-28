@@ -6,6 +6,7 @@ import e = require('express');
 import bcrypt = require('bcrypt');
 
 import { User } from './user.interface';
+import { UserLogin } from './userLogin.interface';
 import { Users } from './users.interface';
 import { HttpResponse } from './../httpResponses/httpResponse.interface';
 
@@ -49,8 +50,8 @@ export const getAll = async (): Promise<HttpResponse> => {
   return httpResponse;  
 };
 
-// GET users/:id
-export const find = async (id: number): Promise<HttpResponse> => {
+// GET users/id/:id
+export const findById = async (id: number): Promise<HttpResponse> => {
 
   let httpResponse: HttpResponse = {
     status_code: null, 
@@ -71,6 +72,32 @@ export const find = async (id: number): Promise<HttpResponse> => {
 
   httpResponse.status_code = 200;
   httpResponse.message = 'Successfully retrieved user by id.';
+  httpResponse.data = user;
+  return httpResponse;   
+};
+
+// GET users/email/:email
+export const findByEmail = async (email: string): Promise<HttpResponse> => {
+
+  let httpResponse: HttpResponse = {
+    status_code: null, 
+    message: '',
+    data: {}
+  };
+
+  let query: string = `SELECT * FROM users WHERE email_address='${email}'`;
+  let rows: Object = await dbPool.query(query);
+  let user: User = JSON.parse(JSON.stringify(rows))[0]; 
+
+  if (user == undefined) {
+    httpResponse.status_code = 401;
+    httpResponse.message = 'No user found with the given email.';
+    httpResponse.data = {'email': email}; 
+    return httpResponse;  
+  }
+
+  httpResponse.status_code = 200;
+  httpResponse.message = 'Successfully retrieved user by email.';
   httpResponse.data = user;
   return httpResponse;   
 };
@@ -130,6 +157,43 @@ export const create = async (newUser: User): Promise<HttpResponse> => {
   httpResponse.message = 'Successfully added new user.';
   httpResponse.data = {'email': email}; 
   return httpResponse; 
+};
+
+// POST login user/
+export const login = async (userLogin: UserLogin): Promise<HttpResponse> => {
+
+  let httpResponse: HttpResponse = {
+    status_code: null, 
+    message: '',
+    data: {}
+  };
+
+  let email: string = userLogin.email_address;
+  let password: string = userLogin.account_password; 
+
+  // check if email exists 
+  const findByEmailResponse: HttpResponse = await findByEmail(email);
+
+  if (findByEmailResponse.status_code === 200) {
+    let hashedPassword: string = findByEmailResponse['data']['account_password'];
+    const hash = await bcrypt.compare(password, hashedPassword); 
+    if (hash) {
+      httpResponse.status_code = 200;
+      httpResponse.message = 'Authorization successful.';
+      httpResponse.data = {'email': email}; 
+      return httpResponse;
+    } else {
+      httpResponse.status_code = 401;
+      httpResponse.message = 'Authorization failed.';
+      httpResponse.data = {'email': email}; 
+      return httpResponse; 
+    }
+  } else {
+    httpResponse.status_code = 401;
+    httpResponse.message = 'Authorization failed.';
+    httpResponse.data = {'email': email}; 
+    return httpResponse; 
+  }
 };
 
 // PUT users/

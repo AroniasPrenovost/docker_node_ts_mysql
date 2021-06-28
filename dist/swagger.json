@@ -75,7 +75,7 @@
                 }
             }
         },
-        "/users/{id}": {
+        "/users/id/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -86,7 +86,7 @@
                 }
             ],
             "get": {
-                "summary": "Get User by Id",
+                "summary": "Get User by Id.",
                 "tags": [
                     "Users"
                 ],
@@ -101,22 +101,22 @@
                         "description": "Failed. User not found"
                     }
                 }
-            },
-            "put": {
-                "summary": "Update User by Id",
+            }
+        },
+        "/users/email/{email_address}": {
+            "parameters": [
+                {
+                    "name": "email_address",
+                    "in": "path",
+                    "required": true,
+                    "description": "Email address of the user we want to retrieve",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "summary": "Get User by Email Address.",
                 "tags": [
                     "Users"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "User with updated property values",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }                        
-                    }
                 ],
                 "responses": {
                     "200": {
@@ -126,11 +126,44 @@
                         }
                     },
                     "404": {
-                        "description": "Failed. User not updated"
+                        "description": "Failed. User not found"
                     }
                 }
             }
-        },
+        },  
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User login.",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogin"
+                        }
+
+                    }
+                ], 
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },  
         "/registrations": {
             "get": {
                 "tags": [
@@ -242,13 +275,24 @@
                 "email_address": {
                     "type": "string"
                 },
-                "password": {
+                "account_password": {
                     "type": "string"
                 },
                 "first_name": {
                     "type": "string"
                 },
                 "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserLogin": {
+            "type": "object",
+            "properties": {
+                "email_address": {
+                    "type": "string"
+                },
+                "account_password": {
                     "type": "string"
                 }
             }

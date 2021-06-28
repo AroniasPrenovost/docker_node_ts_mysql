@@ -57,11 +57,28 @@ exports.UsersRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(404).send(e.message);
     }
 }));
-// GET users/:id
-exports.UsersRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// GET users/id/:id
+exports.UsersRouter.get('/id/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
-        const httpResponse = yield UsersService.find(id);
+        const httpResponse = yield UsersService.findById(id);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
+            .send({
+            message: httpResponse.message,
+            status: res.status,
+            data
+        });
+    }
+    catch (e) {
+        res.status(404).send(e.message);
+    }
+}));
+// GET users/:email
+exports.UsersRouter.get('/email/:email', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const email = req.params.email;
+        const httpResponse = yield UsersService.findByEmail(email);
         let data = JSON.parse(JSON.stringify(httpResponse.data));
         res.status(httpResponse.status_code)
             .send({
@@ -79,6 +96,23 @@ exports.UsersRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, fu
     try {
         const user = req.body;
         const httpResponse = yield UsersService.create(user);
+        let data = JSON.parse(JSON.stringify(httpResponse.data));
+        res.status(httpResponse.status_code)
+            .send({
+            message: httpResponse.message,
+            status: res.status,
+            data
+        });
+    }
+    catch (e) {
+        res.status(404).send(e.message);
+    }
+}));
+// POST users/login
+exports.UsersRouter.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userLogin = req.body;
+        const httpResponse = yield UsersService.login(userLogin);
         let data = JSON.parse(JSON.stringify(httpResponse.data));
         res.status(httpResponse.status_code)
             .send({

@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.remove = exports.update = exports.create = exports.find = exports.getAll = void 0;
+exports.remove = exports.update = exports.login = exports.create = exports.findByEmail = exports.findById = exports.getAll = void 0;
 const bcrypt = require("bcrypt");
 var Utils = require('../../utils/index');
 /**
@@ -45,8 +45,8 @@ exports.getAll = () => __awaiter(void 0, void 0, void 0, function* () {
     httpResponse.data = {};
     return httpResponse;
 });
-// GET users/:id
-exports.find = (id) => __awaiter(void 0, void 0, void 0, function* () {
+// GET users/id/:id
+exports.findById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     let httpResponse = {
         status_code: null,
         message: '',
@@ -63,6 +63,27 @@ exports.find = (id) => __awaiter(void 0, void 0, void 0, function* () {
     }
     httpResponse.status_code = 200;
     httpResponse.message = 'Successfully retrieved user by id.';
+    httpResponse.data = user;
+    return httpResponse;
+});
+// GET users/email/:email
+exports.findByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    let httpResponse = {
+        status_code: null,
+        message: '',
+        data: {}
+    };
+    let query = `SELECT * FROM users WHERE email_address='${email}'`;
+    let rows = yield dbPool.query(query);
+    let user = JSON.parse(JSON.stringify(rows))[0];
+    if (user == undefined) {
+        httpResponse.status_code = 401;
+        httpResponse.message = 'No user found with the given email.';
+        httpResponse.data = { 'email': email };
+        return httpResponse;
+    }
+    httpResponse.status_code = 200;
+    httpResponse.message = 'Successfully retrieved user by email.';
     httpResponse.data = user;
     return httpResponse;
 });
@@ -86,10 +107,6 @@ exports.create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
     // generate hashed password 
     yield bcrypt.hash(newUser.account_password, 10).then(function (hash) {
         newUser.account_password = hash;
-    });
-    bcrypt.compare('testpass', newUser.account_password).then(function (result) {
-        console.log('match?:');
-        console.log(result);
     });
     // add created_at timestamp  
     newUser.created_at = Utils.datetimeTimestamp();
@@ -117,6 +134,40 @@ exports.create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
     httpResponse.message = 'Successfully added new user.';
     httpResponse.data = { 'email': email };
     return httpResponse;
+});
+// POST login user/
+exports.login = (userLogin) => __awaiter(void 0, void 0, void 0, function* () {
+    let httpResponse = {
+        status_code: null,
+        message: '',
+        data: {}
+    };
+    let email = userLogin.email_address;
+    let password = userLogin.account_password;
+    // check if email exists 
+    const findByEmailResponse = yield exports.findByEmail(email);
+    if (findByEmailResponse.status_code === 200) {
+        let hashedPassword = findByEmailResponse['data']['account_password'];
+        const hash = yield bcrypt.compare(password, hashedPassword);
+        if (hash) {
+            httpResponse.status_code = 200;
+            httpResponse.message = 'Authorization successful.';
+            httpResponse.data = { 'email': email };
+            return httpResponse;
+        }
+        else {
+            httpResponse.status_code = 401;
+            httpResponse.message = 'Authorization failed.';
+            httpResponse.data = { 'email': email };
+            return httpResponse;
+        }
+    }
+    else {
+        httpResponse.status_code = 401;
+        httpResponse.message = 'Authorization failed.';
+        httpResponse.data = { 'email': email };
+        return httpResponse;
+    }
 });
 // PUT users/
 exports.update = (updatedUser) => __awaiter(void 0, void 0, void 0, function* () {
