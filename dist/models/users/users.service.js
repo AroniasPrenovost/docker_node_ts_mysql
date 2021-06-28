@@ -13,6 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.remove = exports.update = exports.create = exports.find = exports.getAll = void 0;
+const bcrypt = require("bcrypt");
 var Utils = require('../../utils/index');
 /**
  * In-Memory Store
@@ -72,20 +73,31 @@ exports.create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
         message: '',
         data: {}
     };
+    // throw error if user email already exists 
+    let email = newUser.email_address;
+    let qy = `SELECT * FROM users WHERE email_address='${email}'`;
+    let rs = yield dbPool.query(qy);
+    if (Object.keys(rs).length) {
+        httpResponse.status_code = 403;
+        httpResponse.message = 'User already exists.';
+        httpResponse.data = { 'email': email };
+        return httpResponse;
+    }
+    // generate hashed password 
+    yield bcrypt.hash(newUser.account_password, 10).then(function (hash) {
+        newUser.account_password = hash;
+    });
+    bcrypt.compare('testpass', newUser.account_password).then(function (result) {
+        console.log('match?:');
+        console.log(result);
+    });
+    // add created_at timestamp  
+    newUser.created_at = Utils.datetimeTimestamp();
+    // build POST query 
     let query = '';
     let preQuery = 'INSERT INTO users';
     let queryKeys = [];
     let postQuery = 'VALUES(';
-    let email = newUser.email_address;
-    // generate temp password for newUser if not set 
-    let pw = newUser.account_password;
-    if (pw == null) {
-        pw = 'placeholder';
-        newUser.account_password = pw;
-    }
-    // add created_at timestamp to newUser
-    newUser.created_at = Utils.datetimeTimestamp();
-    // build POST query 
     let x = 0;
     Object.keys(newUser).forEach(function (key) {
         queryKeys.push(key);
@@ -98,15 +110,6 @@ exports.create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
         }
         x++;
     });
-    // if email does not already exist, add new user
-    let qy = `SELECT * FROM users WHERE email_address='${email}'`;
-    let rs = yield dbPool.query(qy);
-    if (Object.keys(rs).length) {
-        httpResponse.status_code = 403;
-        httpResponse.message = 'User already exists.';
-        httpResponse.data = { 'email': email };
-        return httpResponse;
-    }
     // add new user to table 
     query = `${preQuery}(${queryKeys}) ${postQuery}`;
     yield dbPool.query(query);

@@ -3,6 +3,7 @@
  */
 
 import e = require('express');
+import bcrypt = require('bcrypt');
 
 import { User } from './user.interface';
 import { Users } from './users.interface';
@@ -82,25 +83,33 @@ export const create = async (newUser: User): Promise<HttpResponse> => {
     message: '',
     data: {}
   };
+  
+  // throw error if user email already exists 
+  let email: string = newUser.email_address; 
+  let qy: string = `SELECT * FROM users WHERE email_address='${email}'`;
+  let rs: Object = await dbPool.query(qy);
 
+  if (Object.keys(rs).length) {  
+    httpResponse.status_code = 403;
+    httpResponse.message = 'User already exists.';
+    httpResponse.data = {'email': email}; 
+    return httpResponse; 
+  }
+
+  // generate hashed password 
+  await bcrypt.hash(newUser.account_password, 10).then(function(hash) {
+    newUser.account_password = hash; 
+  });
+
+  // add created_at timestamp  
+  newUser.created_at = Utils.datetimeTimestamp();
+
+  // build POST query 
   let query: string = ''; 
   let preQuery: string = 'INSERT INTO users';
   let queryKeys: string[] = [];
   let postQuery: string = 'VALUES(';
-  
-  let email: string = newUser.email_address; 
 
-  // generate temp password for newUser if not set 
-  let pw: string = newUser.account_password; 
-  if (pw == null) {
-    pw = 'placeholder';
-    newUser.account_password = pw; 
-  }  
-      
-  // add created_at timestamp to newUser
-  newUser.created_at = Utils.datetimeTimestamp();
-
-  // build POST query 
   let x: number = 0; 
   Object.keys(newUser).forEach(function(key) {
     queryKeys.push(key); 
@@ -112,17 +121,6 @@ export const create = async (newUser: User): Promise<HttpResponse> => {
     }
     x++; 
   });
-
-  // if email does not already exist, add new user
-  let qy: string = `SELECT * FROM users WHERE email_address='${email}'`;
-  let rs: Object = await dbPool.query(qy);
-
-  if (Object.keys(rs).length) {  
-    httpResponse.status_code = 403;
-    httpResponse.message = 'User already exists.';
-    httpResponse.data = {'email': email}; 
-    return httpResponse; 
-  }
     
   // add new user to table 
   query = `${preQuery}(${queryKeys}) ${postQuery}`;    

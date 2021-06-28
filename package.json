@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@types/redis": "^2.8.28",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.15.2",
     "debug": "^2.2.0",
     "dotenv": "^8.2.0",
