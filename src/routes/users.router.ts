@@ -8,7 +8,7 @@ import * as UsersService from '../models/users/users.service';
 import { User } from '../models/users/user.interface';
 import { UserLogin } from '../models/users/userLogin.interface';
 import { HttpResponse } from '../models/httpResponses/httpResponse.interface';
-import { Console } from 'console';
+import { authCheck } from '../middlewares/authCheck';
 
 /**
  * Router Definition
@@ -77,7 +77,7 @@ UsersRouter.get('/email/:email', async (req: Request, res: Response) => {
 });
   
 // POST users/
-UsersRouter.post('/', async (req: Request, res: Response) => {
+UsersRouter.post('/', authCheck, async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
     const httpResponse: HttpResponse = await UsersService.create(user);
@@ -115,7 +115,7 @@ UsersRouter.post('/login', async (req: Request, res: Response) => {
 });
 
 // PUT users/
-UsersRouter.put('/', async (req: Request, res: Response) => {
+UsersRouter.put('/', authCheck, async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
     const httpResponse: HttpResponse = await UsersService.update(user);
@@ -134,7 +134,7 @@ UsersRouter.put('/', async (req: Request, res: Response) => {
 });
   
 // DELETE users/
-UsersRouter.delete('/:id', async (req: Request, res: Response) => {
+UsersRouter.delete('/:id', authCheck, async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
     await UsersService.remove(id);

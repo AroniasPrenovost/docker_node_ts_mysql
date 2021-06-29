@@ -34,6 +34,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersRouter = void 0;
 const express = __importStar(require("express"));
 const UsersService = __importStar(require("../models/users/users.service"));
+const authCheck_1 = require("../middlewares/authCheck");
 /**
  * Router Definition
  */
@@ -92,7 +93,7 @@ exports.UsersRouter.get('/email/:email', (req, res) => __awaiter(void 0, void 0,
     }
 }));
 // POST users/
-exports.UsersRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.UsersRouter.post('/', authCheck_1.authCheck, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
         const httpResponse = yield UsersService.create(user);
@@ -126,7 +127,7 @@ exports.UsersRouter.post('/login', (req, res) => __awaiter(void 0, void 0, void 
     }
 }));
 // PUT users/
-exports.UsersRouter.put('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.UsersRouter.put('/', authCheck_1.authCheck, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
         const httpResponse = yield UsersService.update(user);
@@ -143,7 +144,7 @@ exports.UsersRouter.put('/', (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 }));
 // DELETE users/
-exports.UsersRouter.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.UsersRouter.delete('/:id', authCheck_1.authCheck, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
         yield UsersService.remove(id);
