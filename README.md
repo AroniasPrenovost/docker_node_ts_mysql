@@ -168,7 +168,7 @@ Build a real world "production" REST API:
 
 * [ ] dep vendored, but using the standard library often, instead of piling on dependencies.
 
-* [ ] Authenticated and Authorized via apikeys and/or user accounts.
+* [x] Authenticated and Authorized via apikeys and/or user accounts.
 
 * [ ] Built and tested via CI: Travis, CircleCi, etc. Recommend Makefile for task documentation.
 
