@@ -32,6 +32,7 @@ describe('GET api/v1/users', () => {
             last_name: expect.any(String),
             created_at: expect.any(String),
             updated_at: expect.any(String),
+            anonymized_at: expect.any(String)
         });
         expect(Utils.validateEmailAddress(response.body.data[0].email_address)).toBe(true);
         done();
@@ -54,6 +55,7 @@ describe('GET api/v1/users/id/:id', () => {
             last_name: expect.any(String),
             created_at: expect.any(String),
             updated_at: expect.any(String),
+            anonymized_at: expect.any(String)
         });
         expect(Utils.validateEmailAddress(response.body.data.email_address)).toBe(true);
         done();
@@ -76,6 +78,7 @@ describe('GET api/v1/users/email/:email', () => {
             last_name: expect.any(String),
             created_at: expect.any(String),
             updated_at: expect.any(String),
+            anonymized_at: expect.any(String)
         });
         expect(Utils.validateEmailAddress(response.body.data.email_address)).toBe(true);
         done();

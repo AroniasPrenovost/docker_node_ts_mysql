@@ -22,7 +22,7 @@ describe('GET api/v1/registrations', () => {
             user_id: expect.any(Number),
             event_id: expect.any(Number),
             created_at: expect.any(String),
-            updated_at: expect.any(String),
+            updated_at: expect.any(String)
             // anonymized_at: expect.any.toEqual(null)  
         });
         
@@ -49,7 +49,7 @@ describe('GET api/v1/registrations/:id', () => {
             user_id: expect.any(Number),
             event_id: expect.any(Number),
             created_at: expect.any(String),
-            updated_at: expect.any(String),
+            updated_at: expect.any(String)
             // anonymized_at: expect.any.toEqual(null)  
         });
 
