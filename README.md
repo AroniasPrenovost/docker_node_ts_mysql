@@ -84,11 +84,12 @@ CREATE TABLE users (
 );
 
 -- insert test users 
+-- note, passwords being inserted are pre-hashed using bcrypt. 
 INSERT INTO users (id, email_address, account_password, first_name, last_name)
-VALUES (1, 'test@aol.com', 'sdljfnf97976', 'John', 'Doe');
+VALUES (1, 'test@aol.com', '$2a$09$8W.y9OwZAdUBdhjQlEmlieBYLgwNorHBFtipxGUJV9ktPeGjU8fFG', 'John', 'Doe');
 
 INSERT INTO users (id, email_address, account_password, first_name, last_name)
-VALUES (2, 'test@msn.com', 'sdljfnf97976', 'John', 'Doe');
+VALUES (2, 'test@msn.com', '$2a$09$8W.y9OwZAdUBdhjQlEmlieBYLgwNorHBFtipxGUJV9ktPeGjU8fFG', 'John', 'Doe');
 ```
 
 ## API endpoints
@@ -139,12 +140,12 @@ curl localhost:8080/api/v1/users/email/test_email_address@gmail.com
 
 `POST /users` adds new user record 
 ```sh
-curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "testeroas123"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "a-new-password!"}' -H "Content-Type: application/json"
 ```
 
 `POST /users/login` logs in user
 ```sh
-curl localhost:8080/api/v1/users/login -X POST -d '{"email_address": "testTestington@gmail.com", "account_password": "testeroas123"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users/login -X POST -d '{"email_address": "test@aol.com", "account_password": "testerosa21"}' -H "Content-Type: application/json"
 ```
 
 `PUT /users` update user record - requires user's id
