@@ -39,7 +39,7 @@ npm run test
 ## Create DB
 
 ```sh
-CREATE DATABASE test_data_table ;
+CREATE DATABASE test_data_table;
 ```
 
 ## Create REGISTRATIONS table

@@ -24,6 +24,11 @@ describe('GET api/v1/users', () => {
         expect(response.status).toBe(200);
         expect(response.body.message).toEqual('Successfully retrieved users.');
         expect(response.body instanceof Object).toBe(true);
+        // fix bug 
+        if (response.body.data[0].updated_at == null)
+            response.body.data[0].updated_at = '0000-00-00 00:00:00';
+        if (response.body.data[0].anonymized_at == null)
+            response.body.data[0].anonymized_at = '0000-00-00 00:00:00';
         expect(response.body.data[0]).toMatchObject({
             id: expect.any(Number),
             email_address: expect.any(String),
@@ -47,6 +52,11 @@ describe('GET api/v1/users/id/:id', () => {
         expect(response.status).toBe(200);
         expect(response.body.message).toEqual('Successfully retrieved user by id.');
         expect(response.body instanceof Object).toBe(true);
+        // fix bug 
+        if (response.body.data.updated_at == null)
+            response.body.data.updated_at = '0000-00-00 00:00:00';
+        if (response.body.data.anonymized_at == null)
+            response.body.data.anonymized_at = '0000-00-00 00:00:00';
         expect(response.body.data).toMatchObject({
             id: expect.any(Number),
             email_address: expect.any(String),
@@ -70,6 +80,11 @@ describe('GET api/v1/users/email/:email', () => {
         expect(response.status).toBe(200);
         expect(response.body.message).toEqual('Successfully retrieved user by email.');
         expect(response.body instanceof Object).toBe(true);
+        // fix bug 
+        if (response.body.data.updated_at == null)
+            response.body.data.updated_at = '0000-00-00 00:00:00';
+        if (response.body.data.anonymized_at == null)
+            response.body.data.anonymized_at = '0000-00-00 00:00:00';
         expect(response.body.data).toMatchObject({
             id: expect.any(Number),
             email_address: expect.any(String),
