@@ -93,7 +93,7 @@ exports.UsersRouter.get('/email/:email', (req, res) => __awaiter(void 0, void 0,
     }
 }));
 // POST users/
-exports.UsersRouter.post('/', authCheck_1.authCheck, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.UsersRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
         const httpResponse = yield UsersService.create(user);

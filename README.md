@@ -140,7 +140,7 @@ curl localhost:8080/api/v1/users/email/test_email_address@gmail.com
 
 `POST /users` adds new user record 
 ```sh
-curl localhost:8080/api/v1/users -X POST -d '{"email_address": "testTestington@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "a-new-password!"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users -X POST -d '{"email_address": "fidelion@gmail.com", "first_name": "Test", "last_name": "Testington", "account_password": "$2a$09$0qpHBlv4RgzqIX6Os6jWJONiMdZaaogMqNLQ9M96EEP7A9Ybuqlbi"}' -H "Content-Type: application/json"
 ```
 
 `POST /users/login` logs in user

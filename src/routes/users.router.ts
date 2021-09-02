@@ -77,7 +77,7 @@ UsersRouter.get('/email/:email', async (req: Request, res: Response) => {
 });
   
 // POST users/
-UsersRouter.post('/', authCheck, async (req: Request, res: Response) => {
+UsersRouter.post('/', async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
     const httpResponse: HttpResponse = await UsersService.create(user);
