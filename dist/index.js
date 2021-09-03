@@ -24,10 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const debug_1 = __importDefault(require("debug"));
+const path_1 = __importDefault(require("path"));
 const app_1 = __importDefault(require("./app"));
 debug_1.default('ts-express:server');
 const port = normalizePort(process.env.PORT || 3000);
 app_1.default.set('port', port);
+// configure Express to use EJS
+app_1.default.set('views', path_1.default.join(__dirname, 'views'));
+app_1.default.set('view engine', 'ejs');
 const server = http.createServer(app_1.default);
 server.listen(port);
 server.on('error', onError);
