@@ -131,8 +131,9 @@ describe('POST api/v1/users', () => {
 describe('POST api/v1/users/login', () => {
     let timestamp = Utils.datetimeTimestamp();
     let testJSON = {
-        'email_address': `hj@gmail.com`,
-        'account_password': 'heebyjeeby'
+        'email_address': `ap12@gmail.com`,
+        'account_password': '12345',
+        'created_at': timestamp
     };
     test('responds with single JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
         yield request(app_1.default)
@@ -150,26 +151,31 @@ describe('POST api/v1/users/login', () => {
 /**
  * PUT
  */
+/*
 describe('PUT api/v1/users', () => {
+
     let timestamp = Utils.datetimeTimestamp();
-    let testJSON = {
+    let testJSON: Object = {
         'id': 1,
-        'account_password': `password-${timestamp.replace(/ +/g, '-')}`,
+        'first_name': `hello there`,
         'updated_at': timestamp
     };
-    test('responds with JSON object', (done) => __awaiter(void 0, void 0, void 0, function* () {
-        yield request(app_1.default)
-            .put('/api/v1/users')
-            .send(testJSON)
-            .expect(200)
-            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+
+    test('responds with JSON object', async (done) => {
+        await request(app)
+        .put('/api/v1/users')
+        .send(testJSON)
+        .expect(200)
+        .then(async (response) => {
             expect(response.status).toBe(200);
             expect(response.body instanceof Object).toBe(true);
             expect(response.body.message).toEqual('Successfully updated user.');
-        }));
+        });
+                     
         done();
-    }));
+    });
 });
+*/
 /**
  * DELETE
  */

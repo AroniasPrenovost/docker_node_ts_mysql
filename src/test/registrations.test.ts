@@ -111,7 +111,7 @@ describe('POST api/v1/registrations', () => {
 describe('PUT api/v1/registrations', () => {
 
     let timestamp = Utils.datetimeTimestamp(); 
-    let testJSON = {
+    let testJSON: Object = {
         'id': 1,
         'registration_state': 'unverified',
         'updated_at': timestamp

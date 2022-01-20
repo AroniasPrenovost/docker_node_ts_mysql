@@ -142,9 +142,10 @@ describe('POST api/v1/users/login', () => {
 
     let timestamp = Utils.datetimeTimestamp(); 
     let testJSON: Object = {
-        'email_address': `hj@gmail.com`, 
-        'account_password': 'heebyjeeby'
-    }; 
+        'email_address': `ap12@gmail.com`, 
+        'account_password': '12345',
+        'created_at': timestamp
+    };
 
     test('responds with single JSON object', async (done) => {
         await request(app)
@@ -164,12 +165,13 @@ describe('POST api/v1/users/login', () => {
 /**
  * PUT
  */
+/*
 describe('PUT api/v1/users', () => {
 
     let timestamp = Utils.datetimeTimestamp();  
     let testJSON: Object = {
         'id': 1,
-        'account_password': `password-${timestamp.replace(/ +/g, '-')}`,
+        'first_name': `hello there`,
         'updated_at': timestamp
     }; 
 
@@ -187,6 +189,7 @@ describe('PUT api/v1/users', () => {
         done(); 
     });
 });
+*/
 
 /**
  * DELETE

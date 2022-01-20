@@ -39,11 +39,6 @@ const registrations_router_1 = require("./routes/registrations.router");
 /**
  * Create and configure ExpressJS web server
  */
-/* */
-/* */
-// https://developer.okta.com/blog/2018/11/15/node-express-typescript
-/* */
-/* */
 class App {
     //Run configuration methods on the Express instance
     constructor() {
@@ -60,20 +55,15 @@ class App {
             this.express.use(rateLimiter_1.customRedisRateLimiter);
         }
     }
-    // Configure API endpointss
+    // Configure API endpoints
     routes() {
-        this.express.engine('html', require('ejs').renderFile);
-        this.express.set('view engine', 'html');
-        this.express.set('views', __dirname);
         // This function will change when we start to add more API endpoints 
         let router = express_1.default.Router();
         // placeholder route handler
         router.get('/', (req, res) => {
-            // render the index template
-            res.render("./index");
-            // res.json({
-            //   message: 'Hello World!'
-            // });
+            res.json({
+                message: 'Hello World!'
+            });
         });
         this.express.use('/', router);
         this.express.use('/api/v1/users', users_router_1.UsersRouter);
