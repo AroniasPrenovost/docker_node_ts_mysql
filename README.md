@@ -159,7 +159,7 @@ Build a real world "production" REST API:
 
 * [ ] Scalable, must be able to run more than one instance.
 
-* [ ] Dockerized, runnable on minikube.
+* [ ] Dockerized project into container
 
 * [x] Unit tested, must be able to run "go test ./..." directly from clone.
 

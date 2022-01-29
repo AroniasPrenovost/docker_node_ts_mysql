@@ -5,7 +5,7 @@
 import e = require('express');
 
 // auth 
-import bcrypt = require('bcrypt');
+import bcrypt = require('bcryptjs');
 import jwt = require('jsonwebtoken');
 
 import { User } from './user.interface';

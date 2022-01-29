@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node build/index.js",
     "test": "jest",
     "build": "gulp scripts",
     "preinstall": "npx npm-force-resolutions"
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@types/redis": "^2.8.28",
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "debug": "^2.2.0",
     "dotenv": "^8.2.0",

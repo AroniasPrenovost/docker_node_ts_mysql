@@ -14,7 +14,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.remove = exports.update = exports.login = exports.create = exports.findByEmail = exports.findById = exports.getAll = void 0;
 // auth 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 var Utils = require('../../utils/index');
 /**
