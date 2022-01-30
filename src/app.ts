@@ -6,7 +6,7 @@ import * as bodyParser from 'body-parser';
 
 const testMode: boolean = (process.env.JEST_WORKER_ID !== undefined) ? true : false; 
 
-import { customRedisRateLimiter } from './middlewares/rateLimiter'; 
+// import { customRedisRateLimiter } from './middlewares/rateLimiter'; 
 
 const swaggerUi = require('swagger-ui-express');
 import swaggerDocument from './swagger.json';
@@ -35,9 +35,9 @@ class App {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
-    if (!testMode) {
-      this.express.use(customRedisRateLimiter);
-    }
+    // if (!testMode) {
+    //   this.express.use(customRedisRateLimiter);
+    // }
   }
   // Configure API endpoints
   private routes(): void {

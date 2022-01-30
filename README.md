@@ -10,12 +10,13 @@
 6. Compile assets - `gulp assets`
 7. Tests - `npx test`
 8. Run the development server - `npm start`
-9. Run Redis server in separate window - `redis-server`
+9. Run Redis server in separate window - `redis-server` [*DISABLED]
 
 ```sh
 npm run build ; gulp assets ; npx jest ; npm start
 ```
 
+[*DISABLED]
 ```sh 
  redis-server
 ```

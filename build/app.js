@@ -27,7 +27,7 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const bodyParser = __importStar(require("body-parser"));
 const testMode = (process.env.JEST_WORKER_ID !== undefined) ? true : false;
-const rateLimiter_1 = require("./middlewares/rateLimiter");
+// import { customRedisRateLimiter } from './middlewares/rateLimiter'; 
 const swaggerUi = require('swagger-ui-express');
 const swagger_json_1 = __importDefault(require("./swagger.json"));
 swagger_json_1.default.host = `${process.env.NODE_ENV}:${process.env.PORT}`;
@@ -51,9 +51,9 @@ class App {
         this.express.use(morgan_1.default('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        if (!testMode) {
-            this.express.use(rateLimiter_1.customRedisRateLimiter);
-        }
+        // if (!testMode) {
+        //   this.express.use(customRedisRateLimiter);
+        // }
     }
     // Configure API endpoints
     routes() {
