@@ -7,10 +7,11 @@ require('dotenv').config();
 var mysql = require('mysql');
 var util = require('util');
 var pool = mysql.createPool({
-    host: process.env.API_ENDPOINT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DB,
+    port: process.env.MYSQL_PORT,
     connectionLimit: 10
 });
 // ping db for common exception errors 
