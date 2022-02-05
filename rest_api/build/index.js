@@ -26,7 +26,7 @@ const http = __importStar(require("http"));
 const debug_1 = __importDefault(require("debug"));
 const app_1 = __importDefault(require("./app"));
 debug_1.default('ts-express:server');
-const port = normalizePort(process.env.PORT || 3000);
+const port = normalizePort(process.env.NODE_DOCKER_PORT || 8080);
 app_1.default.set('port', port);
 const server = http.createServer(app_1.default);
 server.listen(port);

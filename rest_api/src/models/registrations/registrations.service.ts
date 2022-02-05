@@ -32,7 +32,7 @@ export const getAll = async (): Promise<HttpResponse> => {
     data: {}
   };
 
-  let query: string = 'SELECT * FROM registrations';
+  let query = 'SELECT * FROM registrations';
   let rows: Object = await dbPool.query(query);
   let registrations: Registrations = JSON.parse(JSON.stringify(rows)); 
 

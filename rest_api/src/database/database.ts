@@ -7,8 +7,12 @@ require('dotenv').config()
 // connection pool https://github.com/mysqljs/mysql   
 var mysql = require('mysql'); 
 var util = require('util');
+
+const testMode: boolean = (process.env.JEST_WORKER_ID !== undefined) ? true : false; 
+const DB_HOST: string = testMode ? process.env.MYSQL_HOST_LOCAL : process.env.MYSQL_HOST_DOCKER;
+
 var pool = mysql.createPool({
-    host: process.env.MYSQL_HOST,
+    host: DB_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASS,
     database: process.env.MYSQL_DB,
