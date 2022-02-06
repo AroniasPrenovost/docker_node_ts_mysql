@@ -4,7 +4,9 @@ This repo is an example of how to Dockerize Nodejs Express and MySQL using Docke
 
 ### Project Setup - Nodejs MySQL with Docker Compose
 
-1. Configure .env files to match MySQL database connection in the current `'root'` folder and `/rest_api`
+1. Configure .env files to match MySQL db connection and Docker ports
+  - in the current `'root'` folder
+  - in REST API folder  `/rest_api`
 ```sh
 cp .env-sample .env
 ```
@@ -26,7 +28,7 @@ docker-compose up -d
 docker-compose down
 ```
 
-Stop and remove all containers, networks, and all images used by any service in docker-compose.yml file
+Stop and remove all containers, networks, and images used by any service in docker-compose.yml file
 ```sh
-docker-compose down --rmi all
+  docker-compose down --rmi all
 ```

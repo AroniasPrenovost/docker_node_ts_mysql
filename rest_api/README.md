@@ -2,14 +2,10 @@
 
 ### Project Setup 
 
-Configure .env files to match MySQL database connection
-```sh
-cp .env-sample .env
-```
-
-1. Fork/Clone
+1. Fork/clone this repo
 2. Create database tables (see below)
-3. create .env w/ credentials - `cp .env-sample .env`
+3. Configure .env files to match MySQL database connection, Docker ports: `cp .env-sample .env`
+  - Do this in `/root` folder and in `/rest_api`
 4. Install dependencies - `npm install`
 5. Compile - `npm run build`
 6. Compile assets - `gulp assets`
@@ -20,7 +16,7 @@ cp .env-sample .env
 Build & run locally 
 ```sh
 npm run build ; gulp assets ; npx jest ; npm start
-```
+``` 
 
 [*DISABLED]
 ```sh 
