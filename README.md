@@ -21,7 +21,7 @@ Or, run services in the background
 docker-compose up -d
 ```
 
-3. Access frontend at {url}/api/v1/API_ENDPOINT
+3. Access frontend at `{url}/api/v1/API_ENDPOINT`
 
 4. Stop all containers
 ```sh
