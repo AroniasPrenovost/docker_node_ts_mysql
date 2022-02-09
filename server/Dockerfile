@@ -1,6 +1,6 @@
 FROM node:10
 
-WORKDIR /rest_api
+WORKDIR /server
 COPY package.json .
 RUN npm install
 COPY . .

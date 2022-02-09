@@ -5,7 +5,7 @@
 1. Fork/clone this repo
 2. Create database tables (see below)
 3. Configure .env files to match MySQL database connection, Docker ports: `cp .env-sample .env`
-  - Do this in `/root` folder and in `/rest_api`
+  - Do this in `/root` folder and in `/server`
 4. Install dependencies - `npm install`
 5. Compile - `npm run build`
 6. Compile assets - `gulp assets`

@@ -1,6 +1,9 @@
 version: '3.8'
-
 services:
+
+#########################################
+#   Setup MYSQL container
+#########################################
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
@@ -12,10 +15,14 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
-  app:
+
+#########################################
+#   Setup server container
+#########################################
+  server:
     depends_on:
       - mysqldb     
-    build: ./rest_api
+    build: ./server
     restart: unless-stopped
     env_file: ./.env
     ports:

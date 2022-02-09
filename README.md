@@ -6,7 +6,7 @@ This repo is an example of how to Dockerize Nodejs Express and MySQL using Docke
 
 1. Configure .env files to match MySQL db connection and Docker ports
   - in the current `'root'` folder
-  - in REST API folder  `/rest_api`
+  - in REST API folder  `/server`
 ```sh
 cp .env-sample .env
 ```
