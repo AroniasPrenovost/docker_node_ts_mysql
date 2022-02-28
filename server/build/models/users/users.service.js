@@ -161,7 +161,7 @@ exports.login = (userLogin) => __awaiter(void 0, void 0, void 0, function* () {
             httpResponse.status_code = 200;
             httpResponse.message = 'Authorization successful.';
             httpResponse.data = {
-                'email': email,
+                'data': findByEmailResponse.data,
                 'token': token
             };
             return httpResponse;

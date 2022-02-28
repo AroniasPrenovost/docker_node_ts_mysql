@@ -84,16 +84,17 @@ CREATE TABLE users (
   account_password varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   first_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   last_name varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  role enum('ADMIN','USER','MODERATOR') COLLATE utf8mb4_unicode_ci DEFAULT 'MODERATOR',
   created_at datetime DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NULL DEFAULT NULL,
   anonymized_at datetime NULL DEFAULT NULL,
   primary key (id)
 );
 
-INSERT INTO users (id, email_address, account_password, first_name, last_name)
+INSERT INTO users (id, email_address, account_password, first_name, last_name, USER)
 VALUES (1, 'test@aol.com', '$2a$09$8W.y9OwZAdUBdhjQlEmlieBYLgwNorHBFtipxGUJV9ktPeGjU8fFG', 'John', 'Doe');
 
-INSERT INTO users (id, email_address, account_password, first_name, last_name)
+INSERT INTO users (id, email_address, account_password, first_name, MODERATOR)
 VALUES (2, 'ap12@gmail.com', '$2a$12$/INFSHVfeUAMvLAddvu9cup0Judh/LHY0DySgCkpau.j1Cc/jike.', 'Alex', 'Doe');
 ```
 
@@ -150,7 +151,7 @@ curl localhost:8080/api/v1/users -X POST -d '{"email_address": "fidelion@gmail.c
 
 `POST /users/login` logs in user
 ```sh
-curl localhost:8080/api/v1/users/login -X POST -d '{"email_address": "test@aol.com", "account_password": "testerosa21"}' -H "Content-Type: application/json"
+curl localhost:8080/api/v1/users/login -X POST -d '{"email_address": "ap12@gmail.com", "account_password": "12345"}' -H "Content-Type: application/json"
 ```
 
 `PUT /users` update user record - requires user's id
@@ -168,7 +169,7 @@ Build a real world "production" REST API:
 
 * [x] Unit tested, must be able to run "go test ./..." directly from clone.
 
-* [ ] Integration tested, recommend docker-compose.
+* [x] Integration tested, recommend docker-compose.
 
 * [x] OpenAPI/Swagger (or similar for gRPC) documented.
 

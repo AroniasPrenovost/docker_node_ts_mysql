@@ -1,8 +1,28 @@
-# Dockerized RESTful API With Node, TypeScript, Express and MySQL
+# Dockerized RESTful API
 
-This repo is an example of how to Dockerize Nodejs Express and MySQL using Docker Compose: https://www.bezkoder.com/docker-compose-nodejs-mysql/#Nodejs_and_MySQL_with_Docker_Overview
+This repo is an example of how to Dockerize a Nodejs Express and MySQL RESTful API w/ a ReactJS frontend using Docker Compose: https://www.bezkoder.com/docker-compose-nodejs-mysql/#Nodejs_and_MySQL_with_Docker_Overview
 
-### Project Setup - Nodejs MySQL with Docker Compose
+### Project Components
+
+PROJECT `root` folder:
+  docker-compose.yml file to orchestrate containers
+
+* FRONTEND
+  `/client`
+    - ReactJS frontend  
+      - ngnix.conf file 
+      - Dockerfile to build frontend image 
+
+* BACKEND
+  `/server`
+    - Node TypeScript API 
+      - Tests written in Jest
+      - Data stored in MySQL
+      - API documented in Swagger
+      - Dockerfile to build backend image 
+
+
+### Project Setup 
 
 1. Configure .env files to match MySQL db connection and Docker ports
   - in the current `'root'` folder

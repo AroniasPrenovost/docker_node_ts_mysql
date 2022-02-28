@@ -26,6 +26,7 @@ require('dotenv').config();
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const bodyParser = __importStar(require("body-parser"));
+const cors_1 = __importDefault(require("cors"));
 const testMode = (process.env.JEST_WORKER_ID !== undefined) ? true : false;
 // import { customRedisRateLimiter } from './middlewares/rateLimiter'; 
 const swaggerUi = require('swagger-ui-express');
@@ -48,6 +49,7 @@ class App {
     }
     // Configure Express middleware
     middleware() {
+        this.express.use(cors_1.default({ origin: 'http://localhost:8888' })); // TEMP
         this.express.use(morgan_1.default('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));

@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "server",
+        "title": "rest_api",
         "description": "A RESTful API using TypeScript & Node.js",
         "license": {
             "name": "MIT",

@@ -15,6 +15,8 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - backend
 
 #########################################
 #   Setup server container
@@ -33,8 +35,29 @@ services:
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
       - DB_PORT=$MYSQLDB_DOCKER_PORT
+    networks:
+      - backend
+      - frontend
     stdin_open: true
     tty: true
 
+#########################################
+#   Setup client container
+#########################################
+  client:
+    depends_on:
+      - server
+    build:
+      context: ./client
+      args:
+        - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+    networks:
+      - frontend  
+
 volumes: 
   db:
+networks:
+  backend:
+  frontend:

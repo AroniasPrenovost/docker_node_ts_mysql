@@ -3,6 +3,7 @@ require('dotenv').config();
 import express from 'express';
 import logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import cors from 'cors';
 
 const testMode: boolean = (process.env.JEST_WORKER_ID !== undefined) ? true : false; 
 
@@ -32,6 +33,7 @@ class App {
   }
   // Configure Express middleware
   private middleware(): void {
+    this.express.use(cors({origin: 'http://localhost:8888'})); // TEMP
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));

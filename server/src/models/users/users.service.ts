@@ -194,7 +194,7 @@ export const login = async (userLogin: UserLogin): Promise<HttpResponse> => {
       httpResponse.status_code = 200;
       httpResponse.message = 'Authorization successful.';
       httpResponse.data = {
-        'email': email,
+        'data': findByEmailResponse.data,
         'token': token
       }; 
       return httpResponse;
@@ -202,7 +202,7 @@ export const login = async (userLogin: UserLogin): Promise<HttpResponse> => {
       httpResponse.status_code = 401;
       httpResponse.message = 'Authorization failed.';
       httpResponse.data = {'email': email}; 
-      return httpResponse; 
+      return httpResponse;
     }
   } else {
     httpResponse.status_code = 401;
