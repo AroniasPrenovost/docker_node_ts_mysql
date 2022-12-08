@@ -1211,16 +1211,19 @@
         "@types/node": "*"
       }
     },
-    "node_modules/@types/mysql": {
-      "resolved": "git+ssh://git@github.com/types/mysql.git#c26b1bc2bac17010081455e3127a90fb2eafcec9",
-      "dev": true
-    },
     "node_modules/@types/mysql2": {
       "resolved": "git+ssh://git@github.com/types/mysql2.git#d4ef3b2292f328049f7e4c545f6adab7d6a350a9",
       "dev": true,
       "dependencies": {
         "@types/mysql": "@types/mysql@github:types/mysql"
       }
+    },
+    "node_modules/@types/mysql2/@types/mysql@github:types/mysql": {
+      "dev": true
+    },
+    "node_modules/@types/mysql2/node_modules/@types/mysql": {
+      "resolved": "node_modules/@types/mysql2/@types/mysql@github:types/mysql",
+      "link": true
     },
     "node_modules/@types/node": {
       "version": "6.14.13",
@@ -2419,9 +2422,9 @@
       "dev": true
     },
     "node_modules/decode-uri-component": {
-      "version": "0.2.0",
-      "resolved": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
-      "integrity": "sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=",
+      "version": "0.2.2",
+      "resolved": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.2.tgz",
+      "integrity": "sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==",
       "dev": true,
       "engines": {
         "node": ">=0.10"
@@ -11088,17 +11091,17 @@
         "@types/node": "*"
       }
     },
-    "@types/mysql": {
-      "version": "git+ssh://git@github.com/types/mysql.git#c26b1bc2bac17010081455e3127a90fb2eafcec9",
-      "dev": true,
-      "from": "git+ssh://git@github.com/types/mysql.git#c26b1bc2bac17010081455e3127a90fb2eafcec9"
-    },
     "@types/mysql2": {
       "version": "git+ssh://git@github.com/types/mysql2.git#d4ef3b2292f328049f7e4c545f6adab7d6a350a9",
       "dev": true,
-      "from": "@types/mysql2@github:types/mysql2",
+      "from": "github:types/mysql2",
       "requires": {
         "@types/mysql": "@types/mysql@github:types/mysql"
+      },
+      "dependencies": {
+        "@types/mysql": {
+          "version": "file:node_modules/@types/mysql2/@types/mysql@github:types/mysql"
+        }
       }
     },
     "@types/node": {
@@ -12094,9 +12097,9 @@
       "dev": true
     },
     "decode-uri-component": {
-      "version": "0.2.0",
-      "resolved": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
-      "integrity": "sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=",
+      "version": "0.2.2",
+      "resolved": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.2.tgz",
+      "integrity": "sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==",
       "dev": true
     },
     "deep-is": {
