@@ -42,7 +42,7 @@ docker-compose up -d
 
 ### Up and running
 Site URL: `localhost:{REACT_LOCAL_PORT}`
-Swagger API: `{url}/api/v1/API_ENDPOINT`
+Swagger API: `{Site URL}/api/v1/docs/`
 
 ### Shutting down
 ```sh
